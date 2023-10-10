@@ -13,6 +13,7 @@ Welcome to vshieldpy's documentation!
    :caption: Contents:
 
    ./client
+   ./server_params.rst
 
 
 

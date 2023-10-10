@@ -5,5 +5,5 @@ Client
 * :ref:`modindex`
 * :ref:`search`
 
-.. autoclass:: vshieldapi.Client
+.. autoclass:: vshieldpy.Client
     :members:

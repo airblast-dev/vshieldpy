@@ -6,24 +6,26 @@ API Parameters
 * :ref:`search`
 
 API parameters are types that you would import to provide as arguments
-to a :doc:`Client <client>`
+to a :doc:`Client <client>`.
 
-.. autoclass:: vshieldpy.api_defs.AutoRenew
+.. autoenum:: vshieldpy.api_defs.AutoRenew
     :members:
 
-.. autoclass:: vshieldpy.api_defs.OperatingSystems
+.. autoenum:: vshieldpy.api_defs.OperatingSystems
    :members:
 
-.. autoclass:: vshieldpy.api_defs.ServerActions
+.. autoenum:: vshieldpy.api_defs.ServerActions
    :members:
 
-.. autoclass:: vshieldpy.api_defs.ServiceActions
+.. autoenum:: vshieldpy.api_defs.ServiceActions
    :members:
 
-.. autoclass:: vshieldpy.api_defs.Actions
+.. autoenum:: vshieldpy.api_defs.Actions
    :members:
 
-.. autoclass:: vshieldpy.api_defs.Plans
+.. autoenum:: vshieldpy.api_defs.Plans
     :members:
+
+
 
 
