@@ -12,8 +12,9 @@ Welcome to vshieldpy's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   ./client
+   ./client.rst
    ./server_params.rst
+   ./api_types.rst
 
 
 

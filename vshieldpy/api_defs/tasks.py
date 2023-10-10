@@ -48,7 +48,14 @@ class TaskStatus(Enum):
 
 @dataclass(init=True, slots=True)
 class Task:
-    """A task and all of its information."""
+    """A task and all of its information.
+
+    Attributes:
+        action: Server or service action that was performed or being performed.
+        completion_date: Time of the task completion.
+        start_date: Time of when the task was started.
+        status: Current status of the task.
+    """
 
     action: ServiceActions | ServerActions
     completion_date: datetime

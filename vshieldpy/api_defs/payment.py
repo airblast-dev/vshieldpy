@@ -7,7 +7,14 @@ from typing import Optional
 
 @dataclass(slots=True, frozen=True)
 class Payment:
-    """Payment information returned by the API."""
+    """Payment information returned by the API.
+
+    Attributes:
+        price: Amount that was paid.
+        new_balance: Current balance of the account.
+        expiration: Expiration of the invoice.
+        invoice_id: The invoices identifier.
+    """
 
     price: str
     new_balance: str
