@@ -1,5 +1,5 @@
 [project]
-name = "vshieldapi"
+name = "vshieldpy"
 version = "0.0.1"
 authors = [
   {name="Tayfun Bocek", email="tayfunbocek@live.ca"},
