@@ -26,11 +26,12 @@ if TYPE_CHECKING:
 
 
 class Client:
-    """Client for sending requests to the vShield API.
+    """ Asynchronous client for sending requests to the vShield API.
 
     The naming convention for methods is similiar to a discord.py Client.
     Function names starting with fetch, send async requests and function names starting
-    with get perform cache lookups.
+    with get perform cache lookups. Any extra keyword arguments are passed to an `httpx 
+    AsyncClient <https://www.python-httpx.org/api/#asyncclient>`_.
     """
 
     __slots__ = ("_auth_key", "_session", "_balance", "_servers")
