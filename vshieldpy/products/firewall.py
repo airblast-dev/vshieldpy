@@ -1,3 +1,5 @@
+"""Firewall module for the firewall and its sub types."""
+
 from dataclasses import dataclass
 from datetime import datetime
 
