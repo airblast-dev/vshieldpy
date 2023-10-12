@@ -6,7 +6,7 @@ from datetime import datetime
 from typing import TYPE_CHECKING
 
 from ..api_defs import AutoRenew, Payment
-from ..products import DedicatedServer, Hosting
+from ..products import DedicatedServer, Hosting, Services
 
 
 def _is_numeric(nums: str) -> bool:
@@ -36,7 +36,7 @@ def _construct_service(service) -> DedicatedServer | Hosting:
 
 
 def _get_list(response: list[dict[str, Any]]):
-    services = tuple(map(_construct_service, response))
+    services = Services(tuple(map(_construct_service, response)))
     return services
 
 

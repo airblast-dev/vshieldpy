@@ -4,6 +4,14 @@ from dataclasses import dataclass
 from datetime import datetime
 
 
+def _is_hosting(service) -> bool:
+    return isinstance(service, Hosting)
+
+
+def _is_dedi_server(service) -> bool:
+    return isinstance(service, DedicatedServer)
+
+
 @dataclass(slots=True)
 class DedicatedServer:
     """Dedicated server object with ease of use methods.
@@ -36,3 +44,20 @@ class Hosting:
     domain: str
     status: bool
     expiration: datetime
+
+
+@dataclass(slots=True)
+class Services:
+    """Group of services with ease of use methods."""
+
+    services: tuple[DedicatedServer, Hosting]
+
+    @property
+    def hostings(self):
+        """All owned hostings."""
+        return tuple(filter(_is_hosting, self.services))
+
+    @property
+    def dedicated_servers(self):
+        """All owned dedicated servers."""
+        return tuple(filter(_is_dedi_server, self.services))
