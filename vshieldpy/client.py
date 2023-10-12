@@ -222,7 +222,9 @@ class Client:
         method, url = _ServerRequests.GET_LIST
         req = Request(method, url)
         response = await self._request(req)
-        return servers._get_list(response)
+        _servers = servers._get_list(response)
+        _servers._client = self
+        return servers
 
     async def fetch_server(self, server_id: int):
         """Fetch a single server.
@@ -241,7 +243,9 @@ class Client:
         url = url.join(str(server_id))
         req = Request(method, url)
         response = await self._request(req)
-        return servers._get_server(response)
+        server = servers._get_server(response)
+        server._client = self
+        return server
 
     async def fetch_server_stats(self, server_id: int):
         """Fetch server stats.
