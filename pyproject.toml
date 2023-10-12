@@ -27,6 +27,7 @@ extend-select = [
 extend-ignore = ["D107"]
 fixable = ["I001"]
 line-length = 88
+exclude = ["examples", "docs"]
 
 [tool.ruff.per-file-ignores]
 "__init__.py" = ["F401"]
