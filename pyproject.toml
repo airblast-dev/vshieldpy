@@ -9,7 +9,7 @@ requires-python = ">=3.10"
 dependencies = ["httpx", "httpx[http2]"]
 
 [project.optional-dependencies]
-docs = ["sphinx>=3.4.0",  "sphinx-toolbox", "enum-tools", "sphinx-rtd-theme"]
+docs = ["sphinx>=3.4.0",  "sphinx-toolbox", "enum-tools", "sphinx-rtd-theme", "pycountry"]
 
 [build-system]
 requires = ["hatchling"]
