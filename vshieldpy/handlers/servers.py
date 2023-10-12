@@ -47,7 +47,7 @@ def _get_server_console(response: dict[str, Any]) -> str:
 
 
 def _create_server_task(response: dict[str, Any]) -> bool:
-    return bool(response["taskId"])
+    return response["taskId"]
 
 
 def _set_auto_renew(response: dict[str, Any]):
