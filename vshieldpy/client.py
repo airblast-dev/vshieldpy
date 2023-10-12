@@ -1,6 +1,6 @@
 """Client module for async requests to the vShield API."""
 
-from __future__ import annotations, print_function
+from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
@@ -17,6 +17,13 @@ from .api_defs import (
     _SystemRequests,
 )
 from .auth import _VShieldAuth
+from .exceptions import (
+    InvalidAuthKey,
+    InvalidParameter,
+    InvalidServerId,
+    ReinstallWithoutOS,
+    VShieldpyException,
+)
 from .handlers import billing, firewall, servers, services, system
 
 if TYPE_CHECKING:
@@ -26,11 +33,11 @@ if TYPE_CHECKING:
 
 
 class Client:
-    """ Asynchronous client for sending requests to the vShield API.
+    """Asynchronous client for sending requests to the vShield API.
 
     The naming convention for methods is similiar to a discord.py Client.
     Function names starting with fetch, send async requests and function names starting
-    with get perform cache lookups. Any extra keyword arguments are passed to an `httpx 
+    with get perform cache lookups. Any extra keyword arguments are passed to an `httpx
     AsyncClient <https://www.python-httpx.org/api/#asyncclient>`_.
     """
 
@@ -58,7 +65,9 @@ class Client:
     async def _request(self, req: Request):
         response = (await self._session.send(req)).json()
         if response["requestStatus"] == 0:
-            raise BadRequestStatus(response["result"]["error"])
+            if response["result"]["error"] == "Invalid server.":
+                raise InvalidServerId
+            raise VShieldpyException(response["result"]["error"])
 
         return response["result"]
 
@@ -265,7 +274,7 @@ class Client:
         return servers._get_server_console(response)
 
     async def create_server_task(
-        self, server_id: int, task: ServerActions, os: Optional[OperatingSystems]
+        self, server_id: int, task: ServerActions, os: Optional[OperatingSystems] = None
     ) -> int:
         """Starts a task execution for corresponding server for the ID.
 
@@ -466,41 +475,3 @@ class Client:
         req = Request(method, url)
         response = await self._request(req)
         return billing._get_invoice(response)
-
-
-class InvalidAuthKey(Exception):
-    """Raised upon finding an invalid format (non base16) auth key."""
-
-    def __init__(self, auth_key):
-        super().__init__(
-            f"Invalid auth key was provided, auth key must be a base16 string. "
-            f"{auth_key} is not a valid key."
-        )
-
-
-class BadRequestStatus(Exception):
-    """Raised if there is an unkown API error returned.
-
-    Can also mean format wise correct but invalid auth key was provided.
-    """
-
-    def __init__(self, api_error: str):
-        super().__init__(
-            f'requestStatus was returned "0". Error returned from API: "{api_error}"'
-        )
-
-
-class ReinstallWithoutOS(Exception):
-    """Raised if a reinstall is requested without specifying an Operating system."""
-
-    def __init__(self):
-        super().__init__(
-            "Attempted reinstall task without providing an Operating System."
-        )
-
-
-class InvalidParameter(Exception):
-    """Raised if an invalid parameter was provided for any function or request."""
-
-    def __init__(self, provided_val, accepted_vals=None):
-        super().__init__(f"Expected one of {accepted_vals}, found {provided_val}")
