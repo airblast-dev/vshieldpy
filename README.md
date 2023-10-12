@@ -22,7 +22,7 @@ To install sphinx and the sphinx extension dependencies install the project with
 ### Examples:
 
 #### REPL:
-Example for creating a client and sending a request to check stock statuses.
+Example for creating a client and sending a request to check the accounts current balance.
 		
 ```python-repl
 >>> # For use via the repl, "python -m asyncio" is more practical since its easier to use with async functions.
@@ -32,4 +32,4 @@ Example for creating a client and sending a request to check stock statuses.
 '0.00'
 ```
 
-> **_NOTE:_** For an implementation example in an application such as a discord bot, feel free to check out the [examples](examples/EXAMPLES.md)
+> **_NOTE:_** For an implementation example in an application such as a discord bot, feel free to check out the [examples](examples/EXAMPLES.md).
