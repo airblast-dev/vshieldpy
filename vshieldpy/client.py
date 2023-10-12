@@ -475,3 +475,18 @@ class Client:
         req = Request(method, url)
         response = await self._request(req)
         return billing._get_invoice(response)
+
+    async def fetch_firewall(self, service_id: int):
+        """Fetch a specific firewall.
+
+        Args:
+            service_id: Service ID of the firewall.
+
+        Returns:
+            Firewall: Firewall object containing recent attacks, subdomains and etc.
+        """
+        method, url = _FirewallRequests.GET_INFO
+        url.join(str(service_id))
+        req = Request(method, url)
+        response = await self._request(req)
+        return firewall._get_firewall(response)

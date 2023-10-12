@@ -11,7 +11,7 @@ class Attack:
         average_per_second: Average requests received per second.
         peak: Peak requests per second.
         percent_blocked: Percentage of the blocked requests.
-        status: True if online and False if offline.
+        status: # TODO
         date: Start date of the attack.
         end_date: End date of the attack.
     """
