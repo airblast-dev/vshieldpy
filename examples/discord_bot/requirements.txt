@@ -1,0 +1,2 @@
+vshieldpy >= 0.0.1
+discord.py >= 2.3.2
