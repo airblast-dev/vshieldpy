@@ -24,12 +24,12 @@ To install sphinx and the sphinx extension dependencies install the project with
 #### REPL:
 Example for creating a client and sending a request to check stock statuses.
 		
-	```python-repl
-	>>> # For use via the repl, "python -m asyncio" is more practical since its easier to use with async functions.
-	>>> from vshieldpy import Client
-	>>> client = Client("YOUR_TOKEN")
-	>>> await client.fetch_balance()
-	'0.00'
-	```
+```python-repl
+>>> # For use via the repl, "python -m asyncio" is more practical since its easier to use with async functions.
+>>> from vshieldpy import Client
+>>> client = Client("YOUR_TOKEN")
+>>> await client.fetch_balance()
+'0.00'
+```
 
 > **_NOTE:_** For an implementation example in an application such as a discord bot, feel free to check out the [examples](examples/examples.md)
