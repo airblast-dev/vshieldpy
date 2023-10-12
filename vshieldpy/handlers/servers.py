@@ -6,14 +6,14 @@ from datetime import datetime
 from typing import TYPE_CHECKING
 
 from ..api_defs import AutoRenew, OperatingSystems, Payment, Plans, ServerStats
-from ..products import Server
+from ..products import Server, Servers
 
 if TYPE_CHECKING:
     from typing import Any, Literal
 
 
-def _get_list(response: list[dict[str, Any]]) -> tuple[Server, ...]:
-    return tuple(map(_get_server, response))
+def _get_list(response: list[dict[str, Any]]) -> Servers:
+    return Servers(tuple(map(_get_server, response)))
 
 
 def _get_server(response: dict[str, Any]) -> Server:
