@@ -32,4 +32,4 @@ Example for creating a client and sending a request to check stock statuses.
 '0.00'
 ```
 
-> **_NOTE:_** For an implementation example in an application such as a discord bot, feel free to check out the [examples](examples/examples.md)
+> **_NOTE:_** For an implementation example in an application such as a discord bot, feel free to check out the [examples](examples/EXAMPLES.md)
