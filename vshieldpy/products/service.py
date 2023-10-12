@@ -24,7 +24,7 @@ class DedicatedServer:
 @dataclass(slots=True)
 class Hosting:
     """Hosting object containing related information.
-    
+
     Attributes:
         identifier: Identifier of the hosting.
         domain: Domain assigned to the hosting.
