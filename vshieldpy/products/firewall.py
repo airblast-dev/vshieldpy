@@ -60,7 +60,7 @@ class Subdomains:
 
     def __getitem__(self, subdomain_uri: str) -> Subdomain:
         """Get :class:`~Subdomain` via the subdomain."""
-        subdomain_uri = subdomain_uri.rstrip()
+        subdomain_uri = subdomain_uri.strip()
         for subdomain in self.subdomains:
             if subdomain.subdomain == subdomain_uri:
                 return subdomain
