@@ -11,9 +11,13 @@ from ..products import Server, Servers
 if TYPE_CHECKING:
     from typing import Any, Literal
 
+def _sort_by_id(server: Server) -> int:
+    return server.identifier
 
 def _get_list(response: list[dict[str, Any]]) -> Servers:
-    return Servers(tuple(map(_get_server, response)))
+    server_list = [_get_server(server_r) for server_r in response]
+    server_list.sort(key=_sort_by_id)
+    return Servers(tuple(server_list))
 
 
 def _get_server(response: dict[str, Any]) -> Server:

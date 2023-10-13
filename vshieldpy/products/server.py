@@ -7,7 +7,6 @@ from datetime import datetime
 from typing import Any, Optional
 
 from ..api_defs import AutoRenew, OperatingSystems, Plans
-from ..exceptions import InvalidServerId
 
 
 @dataclass(slots=True)
@@ -16,6 +15,9 @@ class Servers:
 
     Contains servers and provides ease of use methods to get a certain server.
     Such as getting server from hostname.
+
+    Attributes:
+        servers: Servers ordered by their identifier.
     """
 
     servers: tuple[Server]
@@ -25,17 +27,9 @@ class Servers:
         """Yields each server that is stored."""
         yield from self.servers
 
-    def __getitem__(self, server_id: int) -> Server:
-        """Gets server with the provided ID.
-
-        Raises:
-            InvalidServerId: Raised if a server with the provided server ID cannot
-            be found.
-        """
-        for server in self.servers:
-            if server.identifier == server_id:
-                return server
-        raise InvalidServerId
+    def __getitem__(self, index: int) -> Server:
+        """Gets the N'th server."""
+        return self.servers[index]
 
     def get_server_from_hostname(self, hostname: str) -> list[Server]:
         """Get servers via their hostname.
