@@ -109,10 +109,11 @@ async def connect_to_server(interaction: Interaction, server_id: int):
         " Allows easy control over common use actions on a server."
     ),
 )
-async def get_server(interaction: Interaction, server_id: int):
+async def get_server(interaction: Interaction, hostname: str):
     await interaction.response.defer(ephemeral=True)
-    server = await vs_client.fetch_server(server_id)
-    embed = Embed(title=f"Server #{server_id} | {server.hostname}", colour=VS_COLOR)
+    servers = await vs_client.fetch_servers()
+    server = servers.get_server_from_hostname(hostname)[0]
+    embed = Embed(title=f"Server {hostname} | {server.identifier}", colour=VS_COLOR)
     embed.add_field(name="Hostname", value=server.hostname)
     embed.add_field(name="IP", value=server.ip)
     embed.add_field(name="Status", value="Running" if server.status else "Stopped")
@@ -127,22 +128,28 @@ async def get_server(interaction: Interaction, server_id: int):
     view = ui.View()
     view.add_item(
         ActionButton(
-            api_defs.ServerActions.Start, vs_client.create_server_task, server_id
+            api_defs.ServerActions.Start,
+            vs_client.create_server_task,
+            server.identifier,
         )
     )
     view.add_item(
         ActionButton(
-            api_defs.ServerActions.Stop, vs_client.create_server_task, server_id
+            api_defs.ServerActions.Stop, vs_client.create_server_task, server.identifier
         )
     )
     view.add_item(
         ActionButton(
-            api_defs.ServerActions.Restart, vs_client.create_server_task, server_id
+            api_defs.ServerActions.Restart,
+            vs_client.create_server_task,
+            server.identifier,
         )
     )
     view.add_item(
         ActionButton(
-            api_defs.ServerActions.FixNetwork, vs_client.create_server_task, server_id
+            api_defs.ServerActions.FixNetwork,
+            vs_client.create_server_task,
+            server.identifier,
         )
     )
     await interaction.followup.send(embed=embed, view=view, ephemeral=True)
