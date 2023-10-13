@@ -23,6 +23,11 @@ class Servers:
     servers: tuple[Server]
     _client: Any = field(init=False)
 
+    def __post_init__(self):
+        """Add client to all :class:`Server`'s."""
+        for server in self.servers:
+            server._client = self._client
+
     def __iter__(self):
         """Yields each server that is stored."""
         yield from self.servers
