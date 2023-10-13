@@ -31,6 +31,10 @@ class Servers:
         """Gets the N'th server."""
         return self.servers[index]
 
+    def __len__(self) -> int:
+        """Number of currently stored servers."""
+        return len(self.servers)
+
     def get_server_from_hostname(self, hostname: str) -> list[Server]:
         """Get servers via their hostname.
 
@@ -117,10 +121,23 @@ class Server:
 
         Returns:
             str: The servers password.
+
+        Raises:
+            InvalidServerId: Can be raised if server was deleted or expired.
         """
         _server = await self._client.fetch_server(self.identifier)
         self.password = _server.password
         return self.password
+
+    async def refresh(self) -> None:
+        """Refreshes all information of the server.
+
+        Raises:
+            InvalidServerId: Can be raised if server was deleted or expired.
+        """
+        server = await self._client.fetch_server(self.identifier)
+        for var_name in self.__slots__:
+            setattr(self, var_name, getattr(server, var_name))
 
 
 @dataclass(slots=True)
