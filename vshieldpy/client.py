@@ -216,14 +216,14 @@ class Client:
         Servers returned will not have password information.
 
         Returns:
-            tuple[Server, ...]:
+            Servers:
                 All of the servers found. Servers returned will not contain a password.
         """
         method, url = _ServerRequests.GET_LIST
         req = Request(method, url)
         response = await self._request(req)
         _servers = servers._get_list(response)
-        _servers._client = self
+        _servers._write_clients(self)
         return _servers
 
     async def fetch_server(self, server_id: int):
