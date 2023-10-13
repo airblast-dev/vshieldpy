@@ -4,6 +4,8 @@ Almost all functionality of the API is implemented and with (mostly) proper exce
 
 > **_NOTE:_** This is an unofficial library for the vShield API. There-for vShield is not responsible for any issues regarding this library.
 
+> **_WARNING_** The library is in its early stages this means breaking changes are made very often. Beware!
+
 [![vShield](https://vshield.pro/assets/images/logo.png "The vShield logo")](https://vshield.pro)
 
 In case of any issues using the library, be it better exception handling or ease of use ... feel free to create an issue on Github.
