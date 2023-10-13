@@ -1,15 +1,11 @@
 """Handler for firewall related requests."""
 
 from datetime import datetime
-from typing import TYPE_CHECKING
 
 from ..products import Attack, Firewall, Subdomain, Subdomains
 
-if TYPE_CHECKING:
-    from typing import Any
 
-
-def _construct_subdomain(response: dict[str, Any]) -> Subdomain:
+def _construct_subdomain(response: dict) -> Subdomain:
     return Subdomain(
         response["id"],
         response["info"],
@@ -20,7 +16,7 @@ def _construct_subdomain(response: dict[str, Any]) -> Subdomain:
     )
 
 
-def _construct_attack(response: dict[str, Any]) -> Attack:
+def _construct_attack(response: dict) -> Attack:
     return Attack(
         response["id"],
         response["averagepersec"],
@@ -32,7 +28,7 @@ def _construct_attack(response: dict[str, Any]) -> Attack:
     )
 
 
-def _get_firewall(response: dict[str, Any]) -> Firewall:
+def _get_firewall(response: dict) -> Firewall:
     return Firewall(
         response["underAttack"],
         response["allowedReqPerSec"],

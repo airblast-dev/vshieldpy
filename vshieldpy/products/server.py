@@ -11,7 +11,7 @@ from ..api_defs import AutoRenew, OperatingSystems, Plans
 
 @dataclass(slots=True)
 class Servers:
-    """Group of `~Server`'s.
+    """Group of :class:`~Server`'s.
 
     Contains servers and provides ease of use methods to get a certain server.
     Such as getting server from hostname.
@@ -39,7 +39,7 @@ class Servers:
         """Get servers via their hostname.
 
         Returns:
-            list[Server]: The return is a list of `~Server`'s this because it is
+            list[Server]: The return is a list of :class:`~Server`'s this because it is
             possible to have different servers with the same hostname's. The list can
             be empty if no servers have the provided hostname.
         """
@@ -50,14 +50,8 @@ class Servers:
     def get_server_from_id(self, server_id: int) -> Optional[Server]:
         """Get server via their identifier.
 
-        This can be considered a non exception raising alternative to
-        `~Server.__getitem__`.
-
         Returns:
             Server: A server with the provided ID exists and is returned.
-
-        Raises:
-            InvalidServerId: A server with the provided ID was not found.
         """
         for server in self.servers:
             if server.identifier == server_id:
@@ -68,7 +62,7 @@ class Servers:
         """Refreshes all stored servers.
 
         Arguments:
-            keep_old_pass: If set to True, transfers passwords to new `~Servers`.
+            keep_old_pass: If set to True, transfers passwords to new :class:`~Servers`.
                 This is done by matching the server's ID.
         """
         new_servers = await self._client.fetch_servers()
@@ -116,8 +110,9 @@ class Server:
         """Fetches the password in case the its outdated or missing alltogether.
 
         Once this function is called the password can also be read from the
-        `password` attribute. Calling will function will renew the password stored
-        in the `password` attribute.
+        :attr:`~password` attribute.
+            Calling will function will renew the password stored
+        in the :attr:`~password` attribute.
 
         Returns:
             str: The servers password.

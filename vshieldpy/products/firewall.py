@@ -55,23 +55,20 @@ class Subdomains:
     subdomains: tuple[Subdomain]
 
     def __iter__(self):
-        """Yields contained `~Subdomain`'s."""
+        """Yields contained :class:`~Subdomain`'s."""
         yield from self.subdomains
 
-    def __getitem__(self, subdomain_uri: str) -> Subdomain | None:
-        """Get `~Subdomain` via the subdomain."""
+    def __getitem__(self, subdomain_uri: str) -> Subdomain:
+        """Get :class:`~Subdomain` via the subdomain."""
         subdomain_uri = subdomain_uri.rstrip()
         for subdomain in self.subdomains:
             if subdomain.subdomain == subdomain_uri:
                 return subdomain
-        return None
+        raise KeyError
 
     def subdomains_as_str(self) -> list[str]:
-        """Iterate over subdomains as strings."""
+        """List of subdomains as strings."""
         return [subdomain.subdomain for subdomain in self.subdomains]
-
-
-# TODO add practical methods for Subdomains (__iter__, from_domain, etc.).
 
 
 @dataclass(slots=True)
@@ -84,7 +81,7 @@ class Firewall:
         is_under_attack: True if currently under attack and False if it isnt.
         allowed_req_per_sec: Requests that passed the firewall.
             This is the total number of accepted requests containing good
-             (and possibly bad) requests.
+            (and possibly bad) requests.
         blocked_req_per_sec: Blocked requests per second.
         subdomains: Subdomains container for all subdomains.
         history: Old attacks that were performed on the domain.
