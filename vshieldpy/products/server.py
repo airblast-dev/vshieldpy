@@ -116,9 +116,8 @@ class Server:
         """Fetches the password in case the its outdated or missing alltogether.
 
         Once this function is called the password can also be read from the
-        :attr:`~password` attribute.
-            Calling will function will renew the password stored
-        in the :attr:`~password` attribute.
+        :attr:`~password` attribute. Calling will function will renew the password 
+        stored in the :attr:`~password` attribute.
 
         Returns:
             str: The servers password.
