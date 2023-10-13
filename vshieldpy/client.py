@@ -224,7 +224,7 @@ class Client:
         response = await self._request(req)
         _servers = servers._get_list(response)
         _servers._client = self
-        return servers
+        return _servers
 
     async def fetch_server(self, server_id: int):
         """Fetch a single server.
