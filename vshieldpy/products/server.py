@@ -23,8 +23,9 @@ class Servers:
     servers: tuple[Server]
     _client: Any = field(init=False)
 
-    def __post_init__(self):
+    def _write_clients(self, client):
         """Add client to all :class:`Server`'s."""
+        self._client = client
         for server in self.servers:
             server._client = self._client
 
