@@ -438,6 +438,7 @@ class Client:
             "hostname": hostname,
             "os": os.value,
             "time": days,
+            "plan": plan.value
         }
         method, url = _ServerRequests.ORDER_SERVER
         req = Request(method, url, data=data)
