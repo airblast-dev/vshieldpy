@@ -430,15 +430,17 @@ class Client:
                 f"and 365. {days} was found."
             )
 
-        if not hostname.isalpha():
-            raise InvalidParameter("Hostname can only contain alphabetic characters.")
+        if not hostname.isalpha() or len(hostname) > 16:
+            raise InvalidParameter(
+                "Hostname can only contain alphabetic characters and can be 16 characters in length."
+            )
 
         data = {
             "location": location,
             "hostname": hostname,
             "os": os.value,
             "time": days,
-            "plan": plan.value
+            "plan": plan.value,
         }
         method, url = _ServerRequests.ORDER_SERVER
         req = Request(method, url, data=data)
