@@ -31,3 +31,6 @@ There really isnt a reason to import these beyond type annotating.
 .. autoenum:: vshieldpy.api_defs.TaskStatus
    :members:
 
+.. autoenum:: vshieldpy.api_defs.Status
+   :members:
+
