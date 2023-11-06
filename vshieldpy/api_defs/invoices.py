@@ -14,7 +14,7 @@ class Invoice:
         amount: Amount paid in USD.
         amount_due: Remaining amount to be paid.
         kind: Type of the invoice.
-        service: Service value.
+        service: Service ID. This includes Server ID's and services. Can be None if a server hasnt been deployed yet.
         payment_method: Method of payment.
         date_paid: Date the invoice was paid.
         date: Invoice creation date.
@@ -26,8 +26,8 @@ class Invoice:
     amount: str
     amount_due: str
     kind: str
-    service: int
+    service: int | None
     payment_method: str
-    date_paid: datetime
+    date_paid: datetime | None
     date: datetime
     due_date: datetime
