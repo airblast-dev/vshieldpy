@@ -31,7 +31,9 @@ def _get_invoice(invoice: dict[str, Any]):
         invoice["type"],
         invoice["service"],
         invoice["paymentmethod"],
-        datetime.fromtimestamp(invoice["datepaid"]),
+        datetime.fromtimestamp(invoice["datepaid"])
+        if invoice["datepaid"] is not None
+        else None,
         datetime.fromtimestamp(invoice["date"]),
         datetime.fromtimestamp(invoice["duedate"]),
     )
