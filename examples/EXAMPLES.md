@@ -12,6 +12,7 @@ A simple Discord bot that shows examples of interaction based commands with choi
 Currently there is three commands defined in the example. All responses from the commands are sent as ephemeral messages to hide private information. That being said for commands responding with sensitive information or perform destructive actions, it is recommended to put in place some sort of authentication (2FA, Mail OTP or a fixed password at the very least).
 
 All of the command feature proper choices.
+
 ![image](https://github.com/airblast-dev/vshieldpy/assets/111659262/1387a54a-69e4-45d7-85a8-820c42bccd9e)
 
 
