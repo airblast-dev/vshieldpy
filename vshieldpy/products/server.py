@@ -6,7 +6,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any, Optional
 
-from ..api_defs import AutoRenew, OperatingSystems, Plans
+from ..api_defs import AutoRenew, OperatingSystems, Plans, Status
 
 
 @dataclass(slots=True)
@@ -20,7 +20,7 @@ class Servers:
         servers: Servers ordered by their identifier.
     """
 
-    servers: tuple[Server]
+    servers: tuple[Server, ...]
     _client: Any = field(init=False)
 
     def _write_clients(self, client):
@@ -105,7 +105,7 @@ class Server:
     os: OperatingSystems
     plan: Plans
     autorenew: AutoRenew
-    status: bool
+    status: Status
     node: str
     expiration: datetime
     creation_date: datetime
@@ -116,7 +116,7 @@ class Server:
         """Fetches the password in case the its outdated or missing alltogether.
 
         Once this function is called the password can also be read from the
-        :attr:`~password` attribute. Calling will function will renew the password 
+        :attr:`~password` attribute. Calling the function will renew the password
         stored in the :attr:`~password` attribute.
 
         Returns:

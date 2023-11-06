@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import TYPE_CHECKING
 
-from ..api_defs import AutoRenew, OperatingSystems, Payment, Plans, ServerStats
+from ..api_defs import AutoRenew, OperatingSystems, Payment, Plans, ServerStats, Status
 from ..products import Server, Servers
 
 if TYPE_CHECKING:
@@ -36,7 +36,7 @@ def _get_server(response: dict[str, Any]) -> Server:
         os,
         Plans(response["plan"]),
         AutoRenew(response["autorenew"]),
-        bool(response["status"]),
+        Status(response["status"]),
         response["node"],
         datetime.fromtimestamp(response["expiration"]),
         datetime.fromtimestamp(response["creationdate"]),
