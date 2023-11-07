@@ -6,7 +6,7 @@ Almost all functionality of the API is implemented and with (mostly) proper exce
 
 > **_WARNING_** The library is in its early stages this means breaking changes are made very often. Beware!
 
-[![vShield](https://vshield.pro/assets/images/logo.png "The vShield logo")](https://vshield.pro)
+<a href="https://vshield.pro"><img src="https://cdn.discordapp.com/attachments/1048581891411951636/1170771111361917008/bannerblue.png?ex=655a4090&is=6547cb90&hm=a0579448a362ca4b2c9dc8014ed765d0c7579ecd19043c6a24dd65e6981edbcf&"></a>
 
 In case of any issues using the library, be it better exception handling or ease of use ... feel free to create an issue on Github.
 
