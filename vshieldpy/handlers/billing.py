@@ -39,8 +39,8 @@ def _get_invoice(invoice: dict[str, Any]):
     )
 
 
-def _get_balance(response: dict[Literal["userBalance"], str]) -> str:
-    return response["userBalance"]
+def _get_balance(response: dict[Literal["userBalance"], float]) -> float:
+    return float(response["userBalance"])
 
 
 def _get_transactions(transactions: list[dict[str, Any]]):

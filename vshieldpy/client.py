@@ -460,7 +460,7 @@ class Client:
         response = await self._request(req)
         return servers._order(response)
 
-    async def fetch_balance(self):
+    async def fetch_balance(self) -> float:
         """Fetch the accounts current balance."""
         method, url = _BillingRequests.GET_BALANCE
         req = Request(method, url)
