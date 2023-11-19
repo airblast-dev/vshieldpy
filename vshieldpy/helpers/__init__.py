@@ -1,6 +1,7 @@
 """Assortment common use handler functions."""
 from __future__ import annotations
 
+import re
 from typing import TYPE_CHECKING
 
 import pycountry
@@ -55,3 +56,34 @@ def _location_to_codename(area: str):
             return "OC"
         case "an":
             return "AN"
+
+
+FORM_PARSER = re.compile("[=&]")
+
+
+def _parse_form_data(data: bytes) -> dict[str, str]:
+    """Used in parsing from body contents.
+
+    Not the greatest solution for it.
+    But since it is intended to be used internaly for cleaner error handling its fine as we already know the types of outputs.
+    """
+    _data: list[str] = FORM_PARSER.split(data.decode())
+    parsed = {}
+    for name, val in zip(_data[0::2], _data[1::2]):
+        parsed[name] = val
+    return parsed
+
+
+def hostname_is_valid(hostname: str) -> bool:
+    """Check if provided hostname is valid.
+
+    Args:
+        hostname: Hostname to validate.
+
+    Returns:
+        bool: `True` if hostname is valid, and `False` if it isnt.
+    If hostname is valid, returns `True`, if not False.
+    """
+    if hostname.isascii() and hostname.isalpha() and len(hostname) <= 16:
+        return True
+    return False

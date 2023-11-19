@@ -18,13 +18,13 @@ from .api_defs import (
 )
 from .auth import _VShieldAuth
 from .exceptions import (
-    InvalidAuthKey,
-    InvalidParameter,
-    InvalidServerId,
-    ReinstallWithoutOS,
-    VShieldpyException,
+    auth_exceptions,
+    base_exception,
+    id_exceptions,
+    parameter_exceptions,
 )
 from .handlers import billing, firewall, servers, services, system
+from .helpers import _parse_form_data, hostname_is_valid
 
 if TYPE_CHECKING:
     from typing import Literal, Optional
@@ -59,15 +59,29 @@ class Client:
         try:
             int(auth_key, base=16)
         except ValueError:
-            raise InvalidAuthKey(auth_key)
+            raise auth_exceptions.InvalidAuthKey(auth_key)
         self._auth_key = auth_key
 
     async def _request(self, req: Request):
         response = (await self._session.send(req)).json()
         if response["requestStatus"] == 0:
-            if response["result"]["error"] == "Invalid server.":
-                raise InvalidServerId
-            raise VShieldpyException(response["result"]["error"])
+            form_data = _parse_form_data(req.content)
+            _id = req.url.path.split("/")[-1]
+            # This isnt an elegant way to parse the ID.
+            # But I also dont see much of an elegant way to do so since its just an item on path.
+            match response["result"]["error"]:
+                case "Invalid server.":
+                    raise id_exceptions.InvalidServerID(_id)
+                case "Invalid service.":
+                    raise id_exceptions.InvalidServiceID(_id)
+                case "Invalid task Id.":
+                    raise id_exceptions.InvalidTaskID(_id)
+                case "Invalid hostname.":
+                    raise parameter_exceptions.InvalidHostname(form_data["hostname"])
+                case "Invalid order parameter(s).":
+                    raise parameter_exceptions.InvalidParameter()
+                case _:
+                    raise base_exception.VShieldpyException(response["result"]["error"])
 
         return response["result"]
 
@@ -152,7 +166,7 @@ class Client:
             bool: If the task was created successfuly returns True.
         """
         if task == ServiceActions.Reinstall and not os:
-            raise ReinstallWithoutOS()
+            raise parameter_exceptions.ReinstallWithoutOS()
         method, url = _ServiceRequests.CREATE_TASK
         url = url.join(str(service_id))
 
@@ -173,7 +187,7 @@ class Client:
 
         Args:
             service_id (int): Service ID of the service to perform the task on.
-            auto_renew (AutoRenew): An auto-renew status.
+            auto_renew (AutoRenew | bool): An auto-renew status. Providing `True` enables auto-renewal.
 
         Returns:
             AutoRenew:
@@ -201,7 +215,7 @@ class Client:
         """
         accepted_months = (1, 3, 6)
         if months not in accepted_months:
-            raise InvalidParameter(months, accepted_months)
+            raise parameter_exceptions.InvalidMonths(months, accepted_months)
         method, url = _ServiceRequests.RENEW_SERVICE
 
         data = {"time": months}
@@ -299,7 +313,7 @@ class Client:
         method, url = _ServerRequests.CREATE_TASK
         url = url.join(str(server_id))
         if task == ServerActions.Reinstall and not os:
-            raise ReinstallWithoutOS()
+            raise parameter_exceptions.ReinstallWithoutOS()
         data = {"action": task.value}
         if isinstance(os, OperatingSystems):
             data["os"] = os.value
@@ -327,8 +341,10 @@ class Client:
 
     async def set_server_hostname(self, server_id: int, hostname: str):
         """Set the server's new hostname."""
-        if not hostname.isalpha():
-            raise InvalidParameter("Hostname can only contain alphabetic characters.")
+        if not hostname_is_valid(hostname):
+            raise parameter_exceptions.InvalidHostname(
+                "Hostname can only contain alphabetic characters."
+            )
         method, url = _ServerRequests.SET_HOSTNAME
         url = url.join(str(server_id))
         data = {"hostname": hostname}
@@ -349,7 +365,7 @@ class Client:
         response = await self._request(req)
         return servers._upgrade(response)
 
-    async def change_server_ip(self, server_id):
+    async def change_server_ip(self, server_id: int):
         """Change the server's IP."""
         method, url = _ServerRequests.CHANGE_IP
         url = url.join(str(server_id))
@@ -367,10 +383,7 @@ class Client:
                 Value must not be less than 1 and more than 365.
         """
         if not 1 <= days <= 365:
-            raise ValueError(
-                f"Expected day value to be inclusively between 1 and 365. "
-                f"{days} was found."
-            )
+            raise parameter_exceptions.InvalidDays(days, "(1 - 365)")
 
         method, url = _ServerRequests.RENEW_SERVER
         url = url.join(str(server_id))
@@ -430,8 +443,8 @@ class Client:
                 f"and 365. {days} was found."
             )
 
-        if not hostname.isalpha() or len(hostname) > 16:
-            raise InvalidParameter(
+        if not hostname_is_valid(hostname):
+            raise parameter_exceptions.InvalidHostname(
                 "Hostname can only contain alphabetic characters and can be 16 characters in length."
             )
 
