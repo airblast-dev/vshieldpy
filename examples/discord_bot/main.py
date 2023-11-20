@@ -4,7 +4,8 @@ from discord import ButtonStyle, Colour, Embed, Intents, Interaction, ui
 from discord.ext.commands import Bot
 
 from vshieldpy import Client, api_defs
-from vshieldpy.exceptions import InvalidServerId, VShieldpyException
+from vshieldpy.exceptions.base_exception import VShieldpyException
+from vshieldpy.exceptions.id_exceptions import InvalidServerID
 
 bot = Bot(intents=Intents.none(), command_prefix="!")
 vs_client = Client("VSHIELD_API_TOKEN")
@@ -73,7 +74,7 @@ async def start_server_task(
     await interaction.response.defer(ephemeral=True)
     try:
         task_id = await vs_client.create_server_task(server_id, action, os)
-    except InvalidServerId:
+    except InvalidServerID:
         return
     embed = Embed(
         title="Executing Task",
@@ -159,7 +160,7 @@ async def get_server(interaction: Interaction, hostname: str):
 async def handle_vs_exceptions(interaction: Interaction, error):
     if isinstance(error.original, VShieldpyException):
         original = error.original
-        if isinstance(original, InvalidServerId):
+        if isinstance(original, InvalidServerID):
             embed = Embed(
                 title="Invalid Server ID provided.",
                 description="Please check if the server exists.",
