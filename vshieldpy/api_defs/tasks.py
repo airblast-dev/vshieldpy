@@ -57,7 +57,7 @@ class Task:
         status: Current status of the task.
     """
 
-    action: ServiceActions | ServerActions
+    action: Actions
     completion_date: datetime
     start_date: datetime
     status: TaskStatus
