@@ -18,7 +18,7 @@ if TYPE_CHECKING:
         ram: int
 
     _NetworkStat = TypedDict(
-        "_NetwordStat", {"date": datetime, "in": float, "out": float}
+        "_NetworkStat", {"date": datetime, "in": float, "out": float}
     )
 
     class _ServerGraph(TypedDict):
