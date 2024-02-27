@@ -1,15 +1,19 @@
 [project]
 name = "vshieldpy"
 version = "0.0.1"
-authors = [
-  {name="Tayfun Bocek", email="tayfunbocek@live.ca"},
-]
+authors = [{ name = "Tayfun Bocek", email = "tayfunbocek@live.ca" }]
 description = "Python library for the vShield API."
 requires-python = ">=3.10"
 dependencies = ["httpx", "httpx[http2]"]
 
 [project.optional-dependencies]
-docs = ["sphinx>=3.4.0",  "sphinx-toolbox", "enum-tools", "sphinx-rtd-theme", "pycountry"]
+docs = [
+  "sphinx>=3.4.0",
+  "sphinx-toolbox",
+  "enum-tools",
+  "sphinx-rtd-theme",
+  "pycountry",
+]
 
 [build-system]
 requires = ["hatchling"]
@@ -24,16 +28,14 @@ include = '''
 '''
 
 [tool.ruff]
-extend-select = [
-  "D", "I"
-]
-extend-ignore = ["D107"]
-fixable = ["I001"]
+lint.extend-select = ["D", "I"]
+lint.extend-ignore = ["D107"]
+lint.fixable = ["I001"]
 line-length = 88
 exclude = ["examples", "docs"]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"
