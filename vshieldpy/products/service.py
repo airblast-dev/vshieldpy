@@ -50,7 +50,7 @@ class Hosting:
 class Services:
     """Group of services with ease of use methods."""
 
-    services: tuple[DedicatedServer, Hosting]
+    services: tuple[DedicatedServer | Hosting, ...]
 
     @property
     def hostings(self):

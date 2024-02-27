@@ -52,7 +52,10 @@ class Subdomain:
 class Subdomains:
     """Subdomains object prividing practival methods for lookups."""
 
-    subdomains: tuple[Subdomain]
+    subdomains: tuple[Subdomain, ...]
+
+    def __init__(self, subdomains: tuple[Subdomain, ...]):
+        self.subdomains = subdomains
 
     def __iter__(self):
         """Yields contained :class:`~Subdomain`'s."""
@@ -91,4 +94,4 @@ class Firewall:
     allowed_req_per_sec: int
     blocked_req_per_sec: int
     subdomains: Subdomains
-    history: tuple[Attack]
+    history: tuple[Attack, ...]
