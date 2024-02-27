@@ -41,7 +41,8 @@ class ActionButton(ui.Button):
 # Also allows the bot itself to invoke commands.
 async def check_user_id(interaction: Interaction):
     if str(interaction.user.id) == discord_user_id or interaction.user.id == str(
-        bot.user.id
+        # This is fine since it is only called where a user SHOULD be present.
+        bot.user.id  # type: ignore  
     ):
         return True
 
