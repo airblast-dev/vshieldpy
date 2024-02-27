@@ -25,12 +25,13 @@ def _get_list(
 ) -> StockStatus:
     server_stock_status: dict[
         _SERVER_CLASSES, dict[str, dict[_SERVER_PLANS, dict[Literal["status"], bool]]]
-    ] = {}
+    ] = {}  # type: ignore
     for server_type, statuses in response.items():
         server_stock_status[server_type] = {}
         for location, products in statuses.items():
             products = _match_product_from_id(products)
-            server_stock_status[server_type][location] = {
+            # HACK: Remove the following type ignore.
+            server_stock_status[server_type][location] = {  # type: ignore
                 product: {"status": bool(status["status"])}
                 for product, status in products.items()
             }

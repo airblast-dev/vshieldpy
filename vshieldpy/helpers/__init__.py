@@ -2,14 +2,16 @@
 from __future__ import annotations
 
 import re
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Literal
 
 import pycountry
+
+from ..api_defs import _SERVER_PLANS, _STATUS_CODE
 
 if TYPE_CHECKING:
     from typing import Any
 
-_PRODUCT_NAMES = {
+_PRODUCT_NAMES: dict[str, Any] = {
     "1": "VDS_1",
     "2": "VDS_2",
     "3": "VDS_3",
@@ -25,7 +27,9 @@ _PRODUCT_NAMES = {
 }
 
 
-def _match_product_from_id(product_ids: dict[str, Any]) -> dict[str, Any]:
+def _match_product_from_id(
+    product_ids: dict[_SERVER_PLANS, dict[Literal["status"], _STATUS_CODE]],
+) -> dict[str, Any]:
     _matched: dict[str, Any] = {}
     for product_id in product_ids:
         product_name = _PRODUCT_NAMES[product_id]
@@ -40,7 +44,8 @@ def _location_to_codename(area: str):
     #
     # For multi word countries alpha_2 code is used.
     if " " in area:
-        return pycountry.countries.get(name=area).alpha_2
+        #  The country returned by the API must always be valid.
+        return pycountry.countries.get(name=area).alpha_2  # type: ignore
     match area.lower():
         case "africa":
             return "AF"
