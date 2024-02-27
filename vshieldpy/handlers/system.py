@@ -21,7 +21,7 @@ def _get_list(
     response: dict[
         _SERVER_CLASSES,
         dict[str, dict[_SERVER_PLANS, dict[Literal["status"], _STATUS_CODE]]],
-    ]
+    ],
 ) -> StockStatus:
     server_stock_status: dict[
         _SERVER_CLASSES, dict[str, dict[_SERVER_PLANS, dict[Literal["status"], bool]]]
@@ -43,7 +43,7 @@ def _get_pending_orders(response: list[dict[str, Any]]) -> list[server.PendingSe
         date_paid = datetime.fromtimestamp(order["datePaid"])
         location = pycountry.countries.lookup(order["location"]).alpha_2
         pending_server = server.PendingServer(
-            _id=order["id"],
+            identifier=order["id"],
             hostname=order["hostname"],
             plan=Plans(order["plan"].replace("-", "_")),
             location=location,
