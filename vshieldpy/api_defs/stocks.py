@@ -34,7 +34,7 @@ class StockStatus:
 
     def check_stock(self, plan: Plans, country_code: str) -> bool:
         """Check stock for provided plan and country code."""
-        country_code = country_code.upper()
+        country_code = country_code.lower()
         for stock in self._stocks:
             if country_code in stock.location and plan == stock.plan:
                 return stock.status
