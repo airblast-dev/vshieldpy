@@ -385,9 +385,10 @@ class Client:
         if not 1 <= days <= 365:
             raise parameter_exceptions.InvalidDays(days, "(1 - 365)")
 
+        data = {"time": days}
         method, url = _ServerRequests.RENEW_SERVER
         url = url.join(str(server_id))
-        req = Request(method, url)
+        req = Request(method, url, data=data)
         response = await self._request(req)
         return servers._renew(response)
 

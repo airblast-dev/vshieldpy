@@ -82,7 +82,7 @@ def _renew(response: dict[str, Any]):
 
 
 def _delete(response: dict[Literal["taskId"], int]) -> int:
-    return response["taskId"]
+    return int(response["taskId"])
 
 
 def _order(response: dict[str, Any]) -> Payment:
