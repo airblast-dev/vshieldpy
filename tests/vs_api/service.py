@@ -45,7 +45,7 @@ def create_task(service_id: int):
 @service_bp.post("/manageAutoRenew/<int:service_id>")
 def manage_auto_renew(service_id: int):
     status = request.form["status"]
-    return {"result": {"newStatus": str(1)}, "requestStatus": 1}
+    return {"result": {"newStatus": status}, "requestStatus": 1}
 
 
 @service_bp.post("/renew/<int:service_id>")
