@@ -57,7 +57,7 @@ class Servers:
         """Get server via their identifier.
 
         Returns:
-            Server: A server with the provided ID exists and is returned.
+            Server | None: If a server with the provided ID exists it is returned.
         """
         for server in self.servers:
             if server.identifier == server_id:
@@ -111,23 +111,6 @@ class Server:
     creation_date: datetime
     password: Optional[str] = None
     _client: Any = field(init=False)
-
-    async def fetch_password(self) -> str:
-        """Fetches the password in case the its outdated or missing alltogether.
-
-        Once this function is called the password can also be read from the
-        :attr:`~password` attribute. Calling the function will renew the password
-        stored in the :attr:`~password` attribute.
-
-        Returns:
-            str: The servers password.
-
-        Raises:
-            InvalidServerId: Can be raised if server was deleted or expired.
-        """
-        _server = await self._client.fetch_server(self.identifier)
-        self.password = _server.password
-        return self.password
 
     async def refresh(self) -> None:
         """Refreshes all information of the server.
