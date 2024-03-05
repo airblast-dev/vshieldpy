@@ -1,15 +1,8 @@
-import os
 import pytest
 
-
-
-os.environ["VS_API_URL"] = "https://localhost:5000"
-
-from vshieldpy.client import Client
+from test_api import client
 
 pytestmark = pytest.mark.anyio
-
-client = Client("1")
 
 
 async def test_get_balance():

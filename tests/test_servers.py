@@ -1,7 +1,9 @@
-import os
 import pytest
 
+from test_api import client
+
 from vshieldpy.api_defs.auto_renew import AutoRenew
+from vshieldpy.api_defs.graphs import ServerStats
 from vshieldpy.api_defs.operating_systems import OperatingSystems
 from vshieldpy.api_defs.payment import Payment
 from vshieldpy.api_defs.plans import Plans
@@ -10,16 +12,9 @@ from vshieldpy.exceptions.parameter_exceptions import (
     InvalidHostname,
     ReinstallWithoutOS,
 )
-
-os.environ["VS_API_URL"] = "https://localhost:5000"
-
-from vshieldpy.api_defs.graphs import ServerStats
 from vshieldpy.products.server import Server, Servers
-from vshieldpy.client import Client
-
 
 pytestmark = pytest.mark.anyio
-client = Client("1")
 
 
 async def test_server_get_list():
@@ -39,7 +34,7 @@ async def test_server_graphs():
 
 
 async def test_server_console():
-    console_url = await client.fetch_server_console(0)
+    await client.fetch_server_console(0)
 
 
 async def test_server_create_task():

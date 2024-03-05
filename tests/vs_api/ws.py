@@ -2,11 +2,11 @@
 
 from flask import Flask
 
-from .service import service_bp
-from .system import system_bp
-from .servers import server_bp
 from .billing import billing_bp
 from .firewall import firewall_bp
+from .servers import server_bp
+from .service import service_bp
+from .system import system_bp
 
 app = Flask(__name__)
 

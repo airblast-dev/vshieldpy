@@ -1,18 +1,12 @@
-import os
+import pytest
 
-os.environ["VS_API_URL"] = "https://localhost:5000"
+from test_api import client
 
 from vshieldpy.api_defs.auto_renew import AutoRenew
 from vshieldpy.api_defs.operating_systems import OperatingSystems
 from vshieldpy.api_defs.tasks import ServiceActions
-from vshieldpy.client import Client
-import pytest
-
 from vshieldpy.exceptions.parameter_exceptions import ReinstallWithoutOS
 from vshieldpy.products.service import Hosting
-
-
-client = Client("1")
 
 pytestmark = pytest.mark.anyio
 
