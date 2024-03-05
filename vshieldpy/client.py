@@ -507,7 +507,7 @@ class Client:
             Firewall: Firewall object containing recent attacks, subdomains and etc.
         """
         method, url = _FirewallRequests.GET_INFO
-        url.join(str(service_id))
+        url = url.join(str(service_id))
         req = Request(method, url)
         response = await self._request(req)
         return firewall._get_firewall(response)
