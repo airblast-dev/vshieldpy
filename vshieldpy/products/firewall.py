@@ -41,6 +41,7 @@ class Subdomain:
         backend: IP address of the backend.
         date: Date of when the subdomain was created/added.
     """
+
     # TODO: Correct UAM field description if incorrect. (since it might be possible to have multiple states)
 
     identifier: int
