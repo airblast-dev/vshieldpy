@@ -12,7 +12,7 @@ from ..api_defs import _SERVER_PLANS, _STATUS_CODE
 if TYPE_CHECKING:
     from typing import Any
 
-_PRODUCT_NAMES: dict[str, Any] = {
+_PRODUCT_NAMES: dict[str, str] = {
     "1": "VDS_1",
     "2": "VDS_2",
     "3": "VDS_3",

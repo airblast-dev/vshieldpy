@@ -3,7 +3,6 @@
 from datetime import datetime
 
 from ..api_defs import UAMStatus
-
 from ..products import Attack, Firewall, Subdomain, Subdomains
 
 

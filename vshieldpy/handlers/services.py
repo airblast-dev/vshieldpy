@@ -22,6 +22,7 @@ if TYPE_CHECKING:
 
 
 def _construct_service(service) -> DedicatedServer | Hosting:
+    construct: type[DedicatedServer] | type[Hosting]
     if _is_ip(service["info"]):
         construct = DedicatedServer
     else:
