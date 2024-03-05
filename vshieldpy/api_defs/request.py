@@ -1,6 +1,5 @@
 """Module for constructing vShield API URL's and related functions."""
 
-
 from __future__ import annotations
 
 from os import getenv

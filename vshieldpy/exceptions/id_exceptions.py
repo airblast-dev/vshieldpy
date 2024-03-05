@@ -1,4 +1,5 @@
 """Exceptions for ID related errors."""
+
 from .base_exception import VShieldpyException
 
 

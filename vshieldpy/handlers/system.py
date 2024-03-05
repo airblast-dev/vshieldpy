@@ -56,9 +56,11 @@ def _get_pending_orders(response: list[dict[str, Any]]) -> list[server.PendingSe
 
 def _get_task_info(response: dict[str, Any]) -> Task:
     return Task(
-        Actions(response["type"])
-        if response["type"] != "shutdown"
-        else Actions("stop"),
+        (
+            Actions(response["type"])
+            if response["type"] != "shutdown"
+            else Actions("stop")
+        ),
         datetime.fromtimestamp(response["dateCompleted"]),
         datetime.fromtimestamp(response["date"]),
         TaskStatus(response["status"]),

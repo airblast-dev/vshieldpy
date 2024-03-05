@@ -1,4 +1,5 @@
 """Authentication related exceptions."""
+
 from .base_exception import VShieldpyException
 
 
