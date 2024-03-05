@@ -6,10 +6,15 @@ from vs_api import app
 
 os.environ["VS_API_URL"] = "http://localhost:5000"
 os.environ["VS_API_KEY"] = "1"
+# NOTE: The noqa is required to supress ruff's "import module not at top of file" warning.
+# This is needed until `os.environ` is added as an exception to the rule.
+# Currently that exception, only works when the preview flag is enabled for ruff.
+# See for current status: https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file/
+import vshieldpy  # noqa: E402
 
-import vshieldpy
 
 
+# FIX: This almost always works, however a proper way to assure the server has started should be implemented.
 @pytest.fixture(scope="session", autouse=True)
 def test_server():
     thread = Thread(
@@ -35,3 +40,6 @@ def test_client():
 
 
 client = vshieldpy.Client()
+
+# TODO: Implement `system` test calls. 
+# This would probably better to do once a standard way to provide locations is impleneted.
