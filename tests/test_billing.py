@@ -1,10 +1,11 @@
 import os
 import pytest
 
-from vshieldpy.client import Client
 
 
 os.environ["VS_API_URL"] = "https://localhost:5000"
+
+from vshieldpy.client import Client
 
 pytestmark = pytest.mark.anyio
 

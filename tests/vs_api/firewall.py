@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-firewall_bp = Blueprint("firewall_bp", "firewall")
+firewall_bp = Blueprint("firewall", "firewall_bp")
 
 
 @firewall_bp.get("/getInfo/<int:service_id>")

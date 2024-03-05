@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-system_bp = Blueprint("system", "system")
+system_bp = Blueprint("system", "system_bp")
 
 
 @system_bp.get("/getPlans")

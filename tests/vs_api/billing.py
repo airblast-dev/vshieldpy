@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-billing_bp = Blueprint("billing_bp", "billing")
+billing_bp = Blueprint("billing", "billing_bp")
 
 
 @billing_bp.get("/getBalance")
