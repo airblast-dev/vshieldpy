@@ -44,7 +44,12 @@ class Client:
     __slots__ = ("_auth_key", "_session", "_balance", "_servers")
 
     # All Request constructing is done in public methods then passed to Client._request.
-    def __init__(self, auth_key: str, **kwargs):
+    def __init__(self, auth_key: str | None = None, **kwargs):
+        if auth_key is None:
+            import os
+
+            auth_key = os.environ["VS_API_KEY"]
+
         self.auth_key = auth_key
         session = AsyncClient(auth=_VShieldAuth(auth_key), http2=True, **kwargs)
         self._session = session
