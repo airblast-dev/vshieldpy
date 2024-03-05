@@ -35,10 +35,11 @@ class Subdomain:
         identifier: Identifier of the Subdomain.
         subdomain: Subdomain URI value.
         uam: If the UAM is enabled results in True, else value is False.
-        rate_limit: TODO
+        rate_limit: Allowed maximum requests coming from a single user.
         backend: TODO
         date: Date of when the subdomain was created/added.
     """
+    # TODO: Correct UAM field description if incorrect. (since it might be possible to have multiple states)
 
     identifier: int
     subdomain: str
@@ -50,7 +51,7 @@ class Subdomain:
 
 @dataclass(slots=True)
 class Subdomains:
-    """Subdomains object prividing practival methods for lookups."""
+    """Subdomains object prividing practical methods for lookups."""
 
     subdomains: tuple[Subdomain, ...]
 
