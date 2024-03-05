@@ -42,7 +42,7 @@ class ActionButton(ui.Button):
 async def check_user_id(interaction: Interaction):
     if str(interaction.user.id) == discord_user_id or interaction.user.id == str(
         # This is fine since it is only called where a user SHOULD be present.
-        bot.user.id  # type: ignore  
+        bot.user.id  # type: ignore
     ):
         return True
 
@@ -165,7 +165,7 @@ async def handle_vs_exceptions(interaction: Interaction, error):
             embed = Embed(
                 title="Invalid Server ID provided.",
                 description="Please check if the server exists.",
-                colour=Colour.red()
+                colour=Colour.red(),
                 # TODO add button to list servers in embed.
             )
         else:  # Handles all other api exceptions.
