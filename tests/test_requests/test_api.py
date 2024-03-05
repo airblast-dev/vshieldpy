@@ -40,7 +40,7 @@ def test_client():
 
 client = vshieldpy.Client()
 
-# TODO: Implement `system` test calls. 
+# TODO: Implement `system` test calls.
 # This would probably better to do once a standard way to provide locations is impleneted.
 
 # TODO: Implement testing for return type methods, and validate class properties, fields, and method based API calls.
