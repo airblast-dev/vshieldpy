@@ -3,6 +3,8 @@
 from dataclasses import dataclass
 from datetime import datetime
 
+from vshieldpy.api_defs.uam_status import UAMStatus
+
 
 @dataclass(slots=True)
 class Attack:
@@ -22,7 +24,7 @@ class Attack:
     average_per_second: int
     peak: int
     percent_blocked: int
-    status: bool
+    status: UAMStatus
     date: datetime
     end_date: datetime
 
@@ -34,9 +36,9 @@ class Subdomain:
     Attributes:
         identifier: Identifier of the Subdomain.
         subdomain: Subdomain URI value.
-        uam: If the UAM is enabled results in True, else value is False.
+        uam: Selected UAM mode.
         rate_limit: Allowed maximum requests coming from a single user.
-        backend: TODO
+        backend: IP address of the backend.
         date: Date of when the subdomain was created/added.
     """
     # TODO: Correct UAM field description if incorrect. (since it might be possible to have multiple states)

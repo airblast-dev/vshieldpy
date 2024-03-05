@@ -2,6 +2,8 @@
 
 from datetime import datetime
 
+from ..api_defs import UAMStatus
+
 from ..products import Attack, Firewall, Subdomain, Subdomains
 
 
@@ -22,7 +24,7 @@ def _construct_attack(response: dict) -> Attack:
         response["averagepersec"],
         response["peak"],
         response["percentblocked"],
-        bool(response["status"]),
+        UAMStatus(response["status"]),
         datetime.fromtimestamp(response["date"]),
         datetime.fromtimestamp(response["dateEnd"]),
     )
