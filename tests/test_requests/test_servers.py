@@ -1,8 +1,10 @@
 import pytest
 from test_api import client
 
+import vshieldpy
 from vshieldpy.api_defs.auto_renew import AutoRenew
 from vshieldpy.api_defs.graphs import ServerStats
+from vshieldpy.api_defs.locations import Locations
 from vshieldpy.api_defs.operating_systems import OperatingSystems
 from vshieldpy.api_defs.payment import Payment
 from vshieldpy.api_defs.plans import Plans
@@ -78,6 +80,6 @@ async def test_server_delete():
 
 async def test_server_order():
     payment = await client.order_server(
-        Plans.VDS_PRO_GOLD, "us", "Hello", OperatingSystems.Ubuntu20, 10
+        Plans.VDS_PRO_GOLD, Locations.US, "Hello", OperatingSystems.Ubuntu20, 10
     )
     assert isinstance(payment, Payment)

@@ -6,6 +6,8 @@ from typing import TYPE_CHECKING
 
 from httpx import AsyncClient, Request
 
+from vshieldpy.api_defs.locations import Locations
+
 from .api_defs import (
     OperatingSystems,
     ServerActions,
@@ -413,7 +415,7 @@ class Client:
         return servers._delete(response)
 
     async def order_server(
-        self, plan: Plans, location: str, hostname: str, os: OperatingSystems, days: int
+        self, plan: Plans, location: Locations, hostname: str, os: OperatingSystems, days: int
     ):
         """Place an order for a new server.
 
@@ -455,12 +457,13 @@ class Client:
             )
 
         data = {
-            "location": location,
+            "location": location.value,
             "hostname": hostname,
             "os": os.value,
             "time": days,
             "plan": plan.value,
         }
+
         method, url = _ServerRequests.ORDER_SERVER
         req = Request(method, url, data=data)
         response = await self._request(req)
@@ -491,7 +494,7 @@ class Client:
         """Fetch a specific invoice.
 
         Args:
-            invoice_id (int): Invoice ID to fetch information from.
+            invoice_id: Invoice ID to fetch information from.
 
         Returns:
             Invoice: Invoice object containing invoice information.

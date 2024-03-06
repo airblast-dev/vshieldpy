@@ -20,3 +20,4 @@ from .tasks import Actions, ServerActions, ServiceActions, Task, TaskStatus
 from .transactions import Transaction
 from .type_defs import _SERVER_CLASSES, _SERVER_PLANS, _STATUS_CODE
 from .uam_status import UAMStatus
+from .locations import Locations

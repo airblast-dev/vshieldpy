@@ -5,8 +5,6 @@ from __future__ import annotations
 import re
 from typing import TYPE_CHECKING, Literal
 
-import pycountry
-
 from ..api_defs import _SERVER_PLANS, _STATUS_CODE
 
 if TYPE_CHECKING:
@@ -37,31 +35,6 @@ def _match_product_from_id(
         _matched[product_name] = product_ids[product_id]
 
     return _matched
-
-
-def _location_to_codename(area: str):
-    # vShields API location naming scheme is basically country/continent code for
-    # single word countries/continents.
-    #
-    # For multi word countries alpha_2 code is used.
-    if " " in area:
-        #  The country returned by the API must always be valid.
-        return pycountry.countries.get(name=area).alpha_2  # type: ignore
-    match area.lower():
-        case "africa":
-            return "AF"
-        case "asia":
-            return "AS"
-        case "europe":
-            return "EU"
-        case "na":
-            return "NA"
-        case "sa":
-            return "SA"
-        case "oc":
-            return "OC"
-        case "an":
-            return "AN"
 
 
 FORM_PARSER = re.compile("[=&]")

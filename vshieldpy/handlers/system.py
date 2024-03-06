@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import TYPE_CHECKING
 
-import pycountry
+from ..api_defs import Locations
 
 from ..api_defs import Actions, Plans, StockStatus, Task, TaskStatus
 from ..helpers import _match_product_from_id
@@ -42,12 +42,11 @@ def _get_pending_orders(response: list[dict[str, Any]]) -> list[server.PendingSe
     pending_servers = []
     for order in response:
         date_paid = datetime.fromtimestamp(order["datePaid"])
-        location = pycountry.countries.lookup(order["location"]).alpha_2
         pending_server = server.PendingServer(
             identifier=order["id"],
             hostname=order["hostname"],
             plan=Plans(order["plan"].replace("-", "_")),
-            location=location,
+            location=Locations(order["location"]),
             date_paid=date_paid,
         )
         pending_servers.append(pending_server)

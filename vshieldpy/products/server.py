@@ -6,6 +6,8 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any, Optional
 
+from ..api_defs import Locations
+
 from ..api_defs import AutoRenew, OperatingSystems, Plans, Status
 
 
@@ -140,5 +142,5 @@ class PendingServer:
     identifier: int
     hostname: str
     plan: Plans
-    location: str
+    location: Locations
     date_paid: datetime

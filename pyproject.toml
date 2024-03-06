@@ -12,7 +12,6 @@ docs = [
   "sphinx-toolbox",
   "enum-tools",
   "sphinx-rtd-theme",
-  "pycountry",
 ]
 testing = ["Flask>=3.0.2", "anyio>=4.3.0"]
 

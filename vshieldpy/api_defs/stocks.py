@@ -5,6 +5,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
+from .locations import Locations
+
 from .plans import Plans
 
 if TYPE_CHECKING:
@@ -26,17 +28,16 @@ class StockStatus:
         ],
     ):
         self._stocks = [
-            _Stock(_class, Plans[plan], location, status["status"])
+            _Stock(_class, Plans[plan], Locations(location), status["status"])
             for _class, locations in result.items()
             for location, plans in locations.items()
             for plan, status in plans.items()
         ]
 
-    def check_stock(self, plan: Plans, country_code: str) -> bool:
+    def check_stock(self, plan: Plans, location: Locations) -> bool:
         """Check stock for provided plan and country code."""
-        country_code = country_code.lower()
         for stock in self._stocks:
-            if country_code in stock.location and plan == stock.plan:
+            if location == stock.location and plan == stock.plan:
                 return stock.status
         return False
 
@@ -58,9 +59,9 @@ class StockStatus:
 @dataclass
 class _Stock:
     def __init__(
-        self, _class: _SERVER_CLASSES, plan: Plans, location: str, status: bool
+        self, _class: _SERVER_CLASSES, plan: Plans, location: Locations, status: bool
     ):
         self._class = _class
         self.plan = plan
-        self.location = location.lower()
+        self.location = location
         self.status = status
