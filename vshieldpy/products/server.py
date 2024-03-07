@@ -115,6 +115,8 @@ class Server:
     async def refresh(self) -> None:
         """Refreshes all information of the server.
 
+        This will also fetch the current password for the server.
+
         Raises:
             InvalidServerId: Can be raised if server was deleted or expired.
         """
