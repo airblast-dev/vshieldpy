@@ -40,3 +40,7 @@ exclude = ["examples", "docs"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
+
+[tool.pytest_env]
+VS_API_URL="http://localhost:5000"
+VS_API_KEY=1
