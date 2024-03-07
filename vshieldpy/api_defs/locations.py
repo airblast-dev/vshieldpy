@@ -4,12 +4,12 @@ from enum import Enum
 class Locations(Enum):
     """Locations that are accepted by the API."""
 
-    Canada = ("Canada",)
-    France = ("France",)
-    Europe = ("Europe",)
-    US = ("US",)
+    Canada = "Canada"
+    France = "France"
+    Europe = "Europe"
+    US = "US"
     Singapore = "Singapore"
-    UK = ("UK",)
+    UK = "UK"
     Netherlands = "Netherlands"
 
     @staticmethod
