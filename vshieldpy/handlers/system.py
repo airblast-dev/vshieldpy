@@ -31,7 +31,7 @@ def _get_list(
         for location, products in statuses.items():
             products = _match_product_from_id(products)
             # HACK: Remove the following type ignore.
-            server_stock_status[server_type][location] = {  # type: ignore
+            server_stock_status[server_type][Locations[location]] = { # type: ignore
                 product: {"status": bool(status["status"])}
                 for product, status in products.items()
             }
@@ -45,8 +45,8 @@ def _get_pending_orders(response: list[dict[str, Any]]) -> list[server.PendingSe
         pending_server = server.PendingServer(
             identifier=order["id"],
             hostname=order["hostname"],
-            plan=Plans(order["plan"].replace("-", "_")),
-            location=Locations(order["location"]),
+            plan=Plans[order["plan"].replace("-", "_")],
+            location=Locations.location_from_short(order["location"]),
             date_paid=date_paid,
         )
         pending_servers.append(pending_server)
