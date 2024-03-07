@@ -456,8 +456,11 @@ class Client:
                 "Hostname can only contain alphabetic characters and can be 16 characters in length."
             )
 
+        # NOTE: I don't think making the location lower case is needed.
+        # However accepted parameters on the API documentation show them as lowercase.
+        # So... just to be on the safe side.
         data = {
-            "location": location.value,
+            "location": location.value.lower(),
             "hostname": hostname,
             "os": os.value,
             "time": days,
