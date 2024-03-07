@@ -1,7 +1,6 @@
 import pytest
 from test_api import client
 
-import vshieldpy
 from vshieldpy.api_defs.auto_renew import AutoRenew
 from vshieldpy.api_defs.graphs import ServerStats
 from vshieldpy.api_defs.locations import Locations
