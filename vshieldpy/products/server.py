@@ -6,9 +6,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any, Optional
 
-from ..api_defs import Locations
-
-from ..api_defs import AutoRenew, OperatingSystems, Plans, Status
+from ..api_defs import AutoRenew, Locations, OperatingSystems, Plans, Status
 
 
 @dataclass(slots=True)

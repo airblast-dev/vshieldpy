@@ -5,9 +5,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import TYPE_CHECKING
 
-from ..api_defs import Locations
-
-from ..api_defs import Actions, Plans, StockStatus, Task, TaskStatus
+from ..api_defs import Actions, Locations, Plans, StockStatus, Task, TaskStatus
 from ..helpers import _match_product_from_id
 from ..products import server
 
@@ -31,7 +29,7 @@ def _get_list(
         for location, products in statuses.items():
             products = _match_product_from_id(products)
             # HACK: Remove the following type ignore.
-            server_stock_status[server_type][Locations[location]] = { # type: ignore
+            server_stock_status[server_type][Locations[location]] = {  # type: ignore
                 product: {"status": bool(status["status"])}
                 for product, status in products.items()
             }

@@ -415,7 +415,12 @@ class Client:
         return servers._delete(response)
 
     async def order_server(
-        self, plan: Plans, location: Locations, hostname: str, os: OperatingSystems, days: int
+        self,
+        plan: Plans,
+        location: Locations,
+        hostname: str,
+        os: OperatingSystems,
+        days: int,
     ):
         """Place an order for a new server.
 
