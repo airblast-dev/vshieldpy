@@ -16,6 +16,7 @@ Welcome to vshieldpy's documentation!
    ./server_params.rst
    ./api_types.rst
    ./products.rst
+   ./env_vars.rst
 
 
 
