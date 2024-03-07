@@ -1,6 +1,9 @@
 import pytest
 from test_api import client
 
+from vshieldpy.api_defs.invoices import Invoice
+from vshieldpy.api_defs.transactions import Transaction
+
 pytestmark = pytest.mark.anyio
 
 
@@ -9,12 +12,17 @@ async def test_get_balance():
 
 
 async def test_get_transactions():
-    await client.fetch_transactions()
+    transactions = await client.fetch_transactions()
+    assert type(transactions) == tuple
+    assert all([type(transaction) == Transaction for transaction in transactions])
 
 
 async def test_get_invoices():
-    await client.fetch_invoices()
+    invoices = await client.fetch_invoices()
+    assert type(invoices) == tuple
+    assert all([type(invoice) == Invoice for invoice in invoices])
 
 
 async def test_get_invoice():
-    await client.fetch_invoice(1)
+    invoice = await client.fetch_invoice(1)
+    assert type(invoice) == Invoice

@@ -20,7 +20,7 @@ async def test_get_service_list():
 async def test_get_service_info():
     service_info = await client.fetch_service(0)
     assert service_info is not None
-    assert isinstance(service_info, Hosting)
+    assert type(service_info) == Hosting
 
 
 async def test_create_task_service():
