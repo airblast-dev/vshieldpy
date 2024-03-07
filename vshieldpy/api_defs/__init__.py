@@ -3,6 +3,7 @@
 from .auto_renew import AutoRenew
 from .graphs import ServerStats
 from .invoices import Invoice
+from .locations import Locations
 from .operating_systems import OperatingSystems
 from .paths import (
     _BillingRequests,
@@ -20,4 +21,3 @@ from .tasks import Actions, ServerActions, ServiceActions, Task, TaskStatus
 from .transactions import Transaction
 from .type_defs import _SERVER_CLASSES, _SERVER_PLANS, _STATUS_CODE
 from .uam_status import UAMStatus
-from .locations import Locations

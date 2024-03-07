@@ -6,7 +6,6 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 from .locations import Locations
-
 from .plans import Plans
 
 if TYPE_CHECKING:
