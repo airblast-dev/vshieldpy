@@ -42,8 +42,6 @@ class Subdomain:
         date: Date of when the subdomain was created/added.
     """
 
-    # TODO: Correct UAM field description if incorrect. (since it might be possible to have multiple states)
-
     identifier: int
     subdomain: str
     uam: bool
