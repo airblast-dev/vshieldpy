@@ -51,6 +51,9 @@ def test_servers():
             for server in Servers(SERVERS).get_server_from_hostname(hostname)
         ]
     )
+    server = Servers(SERVERS).get_server_from_id(1)
+    assert server is not None
+    assert server.identifier == 1
 
 
 async def test_server():
