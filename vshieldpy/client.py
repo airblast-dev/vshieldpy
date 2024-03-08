@@ -6,7 +6,16 @@ from typing import TYPE_CHECKING
 
 from httpx import AsyncClient, Request
 
+from vshieldpy.api_defs.graphs import ServerStats
+from vshieldpy.api_defs.invoices import Invoice
 from vshieldpy.api_defs.locations import Locations
+from vshieldpy.api_defs.payment import Payment
+from vshieldpy.api_defs.stocks import StockStatus
+from vshieldpy.api_defs.tasks import Task
+from vshieldpy.api_defs.transactions import Transaction
+from vshieldpy.products.firewall import Firewall
+from vshieldpy.products.server import PendingServer, Server, Servers
+from vshieldpy.products.service import DedicatedServer, Hosting, Services
 
 from .api_defs import (
     OperatingSystems,
@@ -92,7 +101,7 @@ class Client:
 
         return response["result"]
 
-    async def fetch_plans(self):
+    async def fetch_plans(self) -> StockStatus:
         """Fetch available plans with their stock status.
 
         Returns:
@@ -104,7 +113,7 @@ class Client:
         response = await self._request(req)
         return system._get_list(response)
 
-    async def fetch_pending_orders(self):
+    async def fetch_pending_orders(self) -> list[PendingServer]:
         """Fetch currently pending orders.
 
         Returns:
@@ -116,7 +125,7 @@ class Client:
         response = await self._request(req)
         return system._get_pending_orders(response)
 
-    async def fetch_task_info(self, task_id: int):
+    async def fetch_task_info(self, task_id: int) -> Task:
         """Fetch task information.
 
         Returns:
@@ -129,7 +138,7 @@ class Client:
         response = await self._request(req)
         return system._get_task_info(response)
 
-    async def fetch_services(self):
+    async def fetch_services(self) -> Services:
         """Fetchs all currently active services.
 
         Returns:
@@ -141,7 +150,7 @@ class Client:
         response = await self._request(req)
         return services._get_list(response)
 
-    async def fetch_service(self, service_id: int):
+    async def fetch_service(self, service_id: int) -> Hosting | DedicatedServer:
         """Fetch a single service."""
         method, url = _ServiceRequests.GET_INFO
         url = url.join(str(service_id))
@@ -207,7 +216,7 @@ class Client:
         response = await self._request(req)
         return services._set_auto_renew(response)
 
-    async def renew_service(self, service_id: int, months: Literal[1, 3, 6]):
+    async def renew_service(self, service_id: int, months: Literal[1, 3, 6]) -> Payment:
         """Renew a specific service.
 
         Args:
@@ -231,7 +240,7 @@ class Client:
         response = await self._request(req)
         return services._renew(response)
 
-    async def fetch_servers(self):
+    async def fetch_servers(self) -> Servers:
         """Fetch all servers.
 
         Servers returned will not have password information.
@@ -247,7 +256,7 @@ class Client:
         _servers._write_clients(self)
         return _servers
 
-    async def fetch_server(self, server_id: int):
+    async def fetch_server(self, server_id: int) -> Server:
         """Fetch a single server.
 
         Returned Server will have password information.
@@ -268,7 +277,7 @@ class Client:
         server._client = self
         return server
 
-    async def fetch_server_stats(self, server_id: int):
+    async def fetch_server_stats(self, server_id: int) -> ServerStats:
         """Fetch server stats.
 
         Args:
@@ -283,7 +292,7 @@ class Client:
         response = await self._request(req)
         return servers._get_server_stats(response)
 
-    async def fetch_server_console(self, server_id: int):
+    async def fetch_server_console(self, server_id: int) -> str:
         """Fetch url for console connection.
 
         Args:
@@ -329,7 +338,9 @@ class Client:
         response = await self._request(req)
         return servers._create_server_task(response)
 
-    async def set_server_auto_renew(self, server_id: int, auto_renew: AutoRenew):
+    async def set_server_auto_renew(
+        self, server_id: int, auto_renew: AutoRenew
+    ) -> AutoRenew:
         """Set the server's auto-renew status.
 
         Args:
@@ -359,11 +370,14 @@ class Client:
         response = await self._request(req)
         return servers._set_hostname(response)
 
-    async def upgrade_server(self, server_id: int, upgrade: Plans):
+    async def upgrade_server(self, server_id: int, upgrade: Plans) -> Payment:
         """Upgrade the server to a higher tier.
 
         Provided upgrade plan must be in the same class and a higher tier than what
         the servers current plan is.
+
+        Returns:
+            Payment: Only contains the price, and new_balance.
         """
         method, url = _ServerRequests.UPGRADE_SERVER
         url = url.join(str(server_id))
@@ -372,15 +386,19 @@ class Client:
         response = await self._request(req)
         return servers._upgrade(response)
 
-    async def change_server_ip(self, server_id: int):
-        """Change the server's IP."""
+    async def change_server_ip(self, server_id: int) -> Payment:
+        """Change the server's IP.
+
+        Returns:
+            Payment: Only contains the price, and new_balance.
+        """
         method, url = _ServerRequests.CHANGE_IP
         url = url.join(str(server_id))
         req = Request(method, url)
         response = await self._request(req)
         return servers._change_ip(response)
 
-    async def renew_server(self, server_id: int, days: int):
+    async def renew_server(self, server_id: int, days: int) -> Payment:
         """Renew the server.
 
         Args:
@@ -388,6 +406,9 @@ class Client:
                 Server ID for the corresponding server.
             days:
                 Value must not be less than 1 and more than 365.
+
+        Returns:
+            Payment: Contains the transaction price, new balance, and the new expiration date of the server.
         """
         if not 1 <= days <= 365:
             raise parameter_exceptions.InvalidDays(days, "(1 - 365)")
@@ -399,7 +420,7 @@ class Client:
         response = await self._request(req)
         return servers._renew(response)
 
-    async def delete_server(self, server_id: int):
+    async def delete_server(self, server_id: int) -> int:
         """Deletes the server with the specified server_id.
 
         There is no way to reverse this. This should be called with caution.
@@ -407,6 +428,9 @@ class Client:
         Args:
             server_id:
                 Server ID for the corresponding server.
+
+        Returns:
+            int: The task ID for the server deletion task.
         """
         method, url = _ServerRequests.DELETE_SERVER
         url = url.join(str(server_id))
@@ -421,7 +445,7 @@ class Client:
         hostname: str,
         os: OperatingSystems,
         days: int,
-    ):
+    ) -> Payment:
         """Place an order for a new server.
 
         The server can be retrieved via
@@ -444,16 +468,25 @@ class Client:
             days:
                 Value must not be less than 1 or more than 365.
 
+        Returns:
+            Payment: Contains the transaction price, new balance, and the ID for the generated invoice.
+
         Raises:
-            ValueError:
-                The days value was less than 1 or more than 365.
+            InvalidHostname:
+                An invalid hostname was provided.
+            InvalidDays:
+                An invalid day count was provided.
+            ReinstallWithoutOS:
+                A reinstallation task was started without providing :class:`~OperatingSystems`
             InvalidParameter:
-                The hostname value contains alpabetic characters.
+                Order parameters are incompatible.
+                In particular means that the client side couldnt find any issues, and the API responded with no information.
+                Often raised if a :class:`~Plans` is not sold in the provided location argument.
+
         """
         if not 1 <= days <= 365:
-            raise ValueError(
-                f"Expected day value to be inclusively between 1 "
-                f"and 365. {days} was found."
+            raise parameter_exceptions.InvalidDays(
+                days, "between 1, and 365 inclusive."
             )
 
         if not hostname_is_valid(hostname):
@@ -484,21 +517,21 @@ class Client:
         response = await self._request(req)
         return billing._get_balance(response)
 
-    async def fetch_transactions(self):
+    async def fetch_transactions(self) -> tuple[Transaction, ...]:
         """Fetch list of transactions."""
         method, url = _BillingRequests.GET_TRANSACTIONS
         req = Request(method, url)
         response = await self._request(req)
         return billing._get_transactions(response)
 
-    async def fetch_invoices(self):
+    async def fetch_invoices(self) -> tuple[Invoice, ...]:
         """Fetch list of invoices."""
         method, url = _BillingRequests.GET_INVOICES
         req = Request(method, url)
         response = await self._request(req)
         return billing._get_invoices(response)
 
-    async def fetch_invoice(self, invoice_id: int):
+    async def fetch_invoice(self, invoice_id: int) -> Invoice:
         """Fetch a specific invoice.
 
         Args:
@@ -513,7 +546,7 @@ class Client:
         response = await self._request(req)
         return billing._get_invoice(response)
 
-    async def fetch_firewall(self, service_id: int):
+    async def fetch_firewall(self, service_id: int) -> Firewall:
         """Fetch a specific firewall.
 
         Args:

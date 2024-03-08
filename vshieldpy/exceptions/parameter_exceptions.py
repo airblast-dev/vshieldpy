@@ -43,7 +43,7 @@ class InvalidDuration(InvalidParameter):
     """Raised if a non-accepted value is provided for a duration. Intended to be used as a base exception."""
 
 
-class InvalidDays(InvalidParameter, ValueError):
+class InvalidDays(InvalidParameter):
     """Raised if an order, or renewal was attempted with a non-accepted duration in days."""
 
     def __init__(self, provided_val: Any, expected_vals: Sequence[int] | str):
