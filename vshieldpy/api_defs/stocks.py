@@ -40,19 +40,21 @@ class StockStatus:
                 return stock.status
         return False
 
-    def get_locations(self, plan: Plans, only_in_stocks: bool = False):
+    def get_locations(
+        self, plan: Plans, only_in_stocks: bool = False
+    ) -> tuple[Locations, ...]:
         """Get locations for the provided plan."""
-        locations = set()
+        locations = list()
         for stock in self._stocks:
             if stock.plan != plan or stock.location in locations:
                 continue
 
             if not only_in_stocks:
-                locations.add(stock.location)
+                locations.append(stock.location)
             elif stock.status:
-                locations.add(stock.location)
+                locations.append(stock.location)
             continue
-        tuple(locations)
+        return tuple(locations)
 
 
 @dataclass
