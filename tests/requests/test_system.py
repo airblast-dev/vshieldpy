@@ -1,9 +1,10 @@
 import pytest
-from test_api import client
 
 from vshieldpy.api_defs.stocks import StockStatus
 from vshieldpy.api_defs.tasks import Task
 from vshieldpy.products.server import PendingServer
+
+from . import client
 
 pytestmark = pytest.mark.anyio
 

@@ -1,10 +1,17 @@
 from datetime import datetime
 
+import pytest
+
 from vshieldpy.api_defs.auto_renew import AutoRenew
 from vshieldpy.api_defs.operating_systems import OperatingSystems
 from vshieldpy.api_defs.plans import Plans
 from vshieldpy.api_defs.status_codes import Status
+from vshieldpy.client import Client
 from vshieldpy.products import Server, Servers
+
+pytestmark = pytest.mark.anyio
+
+client = Client()
 
 SERVERS: tuple[Server, ...] = (
     Server(
@@ -44,3 +51,10 @@ def test_servers():
             for server in Servers(SERVERS).get_server_from_hostname(hostname)
         ]
     )
+
+
+async def test_server():
+    server = SERVERS[0]
+    server._client = client
+    await server.refresh()
+    assert isinstance(server.password, str)

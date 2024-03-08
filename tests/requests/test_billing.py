@@ -1,8 +1,9 @@
 import pytest
-from test_api import client
 
 from vshieldpy.api_defs.invoices import Invoice
 from vshieldpy.api_defs.transactions import Transaction
+
+from . import client
 
 pytestmark = pytest.mark.anyio
 

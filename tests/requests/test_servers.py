@@ -1,5 +1,4 @@
 import pytest
-from test_api import client
 
 from vshieldpy.api_defs.auto_renew import AutoRenew
 from vshieldpy.api_defs.graphs import ServerStats
@@ -13,6 +12,8 @@ from vshieldpy.exceptions.parameter_exceptions import (
     ReinstallWithoutOS,
 )
 from vshieldpy.products.server import Server, Servers
+
+from . import client
 
 pytestmark = pytest.mark.anyio
 

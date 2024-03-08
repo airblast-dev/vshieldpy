@@ -1,7 +1,8 @@
 import pytest
-from test_api import client
 
 from vshieldpy.products.firewall import Firewall
+
+from . import client
 
 pytestmark = pytest.mark.anyio
 
