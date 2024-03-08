@@ -424,6 +424,9 @@ class Client:
     async def change_server_ip(self, server_id: int) -> Payment:
         """Change the server's IP.
 
+        Raises:
+            InvalidServerID: An invalid server ID was provided.
+
         Returns:
             Payment: Only contains the price, and new_balance.
         """
