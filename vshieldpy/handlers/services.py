@@ -42,8 +42,6 @@ def _get_list(response: list[dict[str, Any]]):
 
 
 def _get_service(response: dict[str, Any]):
-    if not response:
-        return None
     return _construct_service(response)
 
 
