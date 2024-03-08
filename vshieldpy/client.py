@@ -128,6 +128,9 @@ class Client:
     async def fetch_task_info(self, task_id: int) -> Task:
         """Fetch task information.
 
+        Raises:
+            InvalidTaskID: If the task ID provided was not valid.
+
         Returns:
             Task:
                 Task with the ID that was provided.
@@ -151,7 +154,11 @@ class Client:
         return services._get_list(response)
 
     async def fetch_service(self, service_id: int) -> Hosting | DedicatedServer:
-        """Fetch a single service."""
+        """Fetch a single service.
+
+        Raises:
+            InvalidServiceID: An invalid service ID was provided.
+        """
         method, url = _ServiceRequests.GET_INFO
         url = url.join(str(service_id))
         req = Request(method, url)
@@ -177,6 +184,7 @@ class Client:
         Raises:
             ReinstallWithoutOS:
                 Attempted reinstall without providing an operating system.
+            InvalidServiceID: An invalid service ID was provided.
 
         Returns:
             bool: If the task was created successfuly returns True.
@@ -202,8 +210,11 @@ class Client:
         """Set the new auto-renew status for a service.
 
         Args:
-            service_id (int): Service ID of the service to perform the task on.
-            auto_renew (AutoRenew | bool): An auto-renew status. Providing `True` enables auto-renewal.
+            service_id: Service ID of the service to perform the task on.
+            auto_renew: An auto-renew status. Providing `True` enables auto-renewal.
+
+        Raises:
+            InvalidServiceID: An invalid service ID was provided.
 
         Returns:
             AutoRenew:
@@ -224,7 +235,8 @@ class Client:
             months (Literal[1, 3, 6]): Number of months to renew the server.
 
         Raises:
-            InvalidParameter: Invalid value was provided for one of the parameters.
+            InvalidMonths: Raised if the provided months argument is not accepted.
+            InvalidServiceID: An invalid service ID was provided.
 
         Returns:
             Payment: The payment information returned by the API.
@@ -262,7 +274,10 @@ class Client:
         Returned Server will have password information.
 
         Args:
-            server_id (int): Server ID of the Server to lookup information.
+            server_id: Server ID of the Server to lookup information.
+
+        Raises:
+            InvalidServerID: An invalid server ID was provided.
 
         Returns:
             Server:
@@ -281,7 +296,10 @@ class Client:
         """Fetch server stats.
 
         Args:
-            server_id (int): Server ID of the server to get the statistics for.
+            server_id: Server ID of the server to get the statistics for.
+
+        Raises:
+            InvalidServerID: An invalid server ID was provided.
 
         Returns:
             ServerStats: Contains stats for the server.
@@ -296,7 +314,10 @@ class Client:
         """Fetch url for console connection.
 
         Args:
-            server_id (int): _description_
+            server_id: Server ID of the server to get a console connection URL for.
+
+        Raises:
+            InvalidServerID: An invalid server ID was provided.
 
         Returns:
             str: URL for the console session.
@@ -313,13 +334,14 @@ class Client:
         """Starts a task execution for corresponding server for the ID.
 
         Args:
-            server_id (int): Server ID for the server to start the ask on.
-            task (ServerActions): Task to be run on the server.
-            os (Optional[OperatingSystems]):
+            server_id: Server ID for the server to start the ask on.
+            task: Task to be run on the server.
+            os:
                 Choice of operating system.
                 Required if the task to be performed is a reinstall.
 
         Raises:
+            InvalidServerID: An invalid server ID was provided.
             ReinstallWithoutOS:
                 A reinstall task was started without providing an operating system.
 
@@ -344,8 +366,11 @@ class Client:
         """Set the server's auto-renew status.
 
         Args:
-            server_id (int): Server ID of the server to set the auto-renew status to.
-            auto_renew (AutoRenew): The new auto-renew status.
+            server_id: Server ID of the server to set the auto-renew status to.
+            auto_renew: The new auto-renew status.
+
+        Raises:
+            InvalidServerID: An invalid server ID was provided.
 
         Returns:
             AutoRenew: The new auto-renew status.
@@ -358,7 +383,12 @@ class Client:
         return servers._set_auto_renew(response)
 
     async def set_server_hostname(self, server_id: int, hostname: str):
-        """Set the server's new hostname."""
+        """Set the server's new hostname.
+
+        Raises:
+            InvalidServerID: An invalid server ID was provided.
+            InvalidHostname: An invalid hostname was provided.
+        """
         if not hostname_is_valid(hostname):
             raise parameter_exceptions.InvalidHostname(
                 "Hostname can only contain alphabetic characters."
@@ -376,8 +406,13 @@ class Client:
         Provided upgrade plan must be in the same class and a higher tier than what
         the servers current plan is.
 
+        Raises:
+            InvalidServerID: An invalid server ID was provided.
+            InvalidParameter: A lower tier plan was provided than the server's current plan, or attempted to upgrade across different plans.
+                Such as a upgrading a VDS-PRO to a VPS.
+
         Returns:
-            Payment: Only contains the price, and new_balance.
+            Payment: Only contains the price, and the new balance.
         """
         method, url = _ServerRequests.UPGRADE_SERVER
         url = url.join(str(server_id))
@@ -429,6 +464,9 @@ class Client:
             server_id:
                 Server ID for the corresponding server.
 
+        Raises:
+            InvalidServerID: An invalid server ID was provided.
+
         Returns:
             int: The task ID for the server deletion task.
         """
@@ -468,9 +506,6 @@ class Client:
             days:
                 Value must not be less than 1 or more than 365.
 
-        Returns:
-            Payment: Contains the transaction price, new balance, and the ID for the generated invoice.
-
         Raises:
             InvalidHostname:
                 An invalid hostname was provided.
@@ -482,6 +517,10 @@ class Client:
                 Order parameters are incompatible.
                 In particular means that the client side couldnt find any issues, and the API responded with no information.
                 Often raised if a :class:`~Plans` is not sold in the provided location argument.
+
+        Returns:
+            Payment: Contains the transaction price, new balance, and the ID for the generated invoice.
+
 
         """
         if not 1 <= days <= 365:
