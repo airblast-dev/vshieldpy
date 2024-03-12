@@ -33,9 +33,9 @@ Example for creating a client and sending a request to check the accounts curren
 > **_NOTE:_** For an implementation example in an application such as a discord bot, feel free to check out the [examples](examples/README.md).
 
 ### Contribution:
-    The library does cover all API paths, however, there are a few small things missing.
-    - Setting a wallpaper for a server. (This is only doable if you have reseller access)
-    - Tasks are not stored in the instance of a server, said tasks are only returned by `/server/getInfo/<server_id>`.
-    - The ease of use of the library might be lacking for various use cases such as hosting a reseller website.
+The library does cover all API paths, however, there are a few small things missing.
+- Setting a wallpaper for a server. (This is only doable if you have reseller access)
+- Tasks are not stored in the instance of a server, said tasks are only returned by `/server/getInfo/<server_id>`.
+- The ease of use of the library might be lacking for various use cases such as hosting a reseller website.
 
-    For non-breaking and/or small changes feel free to create a PR. If not create an issue so a solution can be discussed.
+For non-breaking and/or small changes feel free to create a PR. If not create an issue so a solution can be discussed.
