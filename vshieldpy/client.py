@@ -86,6 +86,8 @@ class Client:
             # This isnt an elegant way to parse the ID.
             # But I also dont see much of an elegant way to do so since its just an item on path.
             match response["result"]["error"]:
+                case "You are not authenticated.":
+                    raise auth_exceptions.InvalidAuthKey(self.auth_key)
                 case "Invalid server.":
                     raise id_exceptions.InvalidServerID(_id)
                 case "Invalid service.":
