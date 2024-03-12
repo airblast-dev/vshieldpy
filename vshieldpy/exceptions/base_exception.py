@@ -2,10 +2,7 @@
 
 
 class VShieldpyException(Exception):
-    """Raised if there is an unkown API error returned. Also serves as a base exception.
-
-    Can also mean format wise correct but invalid auth key was provided.
-    """
+    """Raised if there is an unkown API error returned. Also serves as a base exception."""
 
     def __init__(self, error: str | None = None, api_error: str | None = None):
         super().__init__(

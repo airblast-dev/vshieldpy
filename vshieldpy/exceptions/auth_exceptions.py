@@ -8,6 +8,6 @@ class InvalidAuthKey(VShieldpyException):
 
     def __init__(self, auth_key):
         super().__init__(
-            f"Invalid auth key was provided, auth key must be a base16 string. "
+            f"Invalid auth key was provided, auth key must be a base16 integer as a string. "
             f"{auth_key} is not a valid key."
         )

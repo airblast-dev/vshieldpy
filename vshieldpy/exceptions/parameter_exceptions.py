@@ -11,7 +11,10 @@ if TYPE_CHECKING:
 
 
 class InvalidParameter(VShieldpyException):
-    """Raised if an invalid parameter was provided for any function or request."""
+    """Raised if an invalid parameter was provided for a request.
+
+    Means the API did not respond with any information about the reason of the error beyond being a parameter error.
+    """
 
     def __init__(self, msg: str | None = None):
         super().__init__(
@@ -35,7 +38,7 @@ class InvalidHostname(InvalidParameter):
     def __init__(self, hostname: str):
         super().__init__(
             "Invalid hostname provided. Hostname can only contain alphabetic ascii characters"
-            f', and must be at most 16 characters. Provided hostname was "{hostname}".'
+            f', and must be at most 16 characters long. Provided hostname was "{hostname}".'
         )
 
 
@@ -52,7 +55,7 @@ class InvalidDays(InvalidParameter):
         )
 
 
-class InvalidMonths(InvalidDuration, ValueError):
+class InvalidMonths(InvalidDuration):
     """Raised if an order, or renewal was attempted with a non-accepted duration in months."""
 
     def __init__(self, provided_val: Any, expected_vals: Sequence[int]):
