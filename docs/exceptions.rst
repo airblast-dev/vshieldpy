@@ -7,9 +7,9 @@ Exceptions
 
 
 
-###############
+##############
 Base Exception
-###############
+##############
 
 All of the exceptions defined in the library are subclassed from this class.
 
@@ -20,9 +20,9 @@ All of the exceptions defined in the library are subclassed from this class.
 .. autoclass:: vshieldpy.exceptions.base_exception.VShieldpyException
    :members:
 
-###############
-Authentication
-###############
+########################
+Authentication Exception
+########################
 
 Authentication related exceptions. Exceptions in this section are expected to be raised in a few cases.
 
