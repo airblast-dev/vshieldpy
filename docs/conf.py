@@ -20,7 +20,7 @@ import sys
 sys.path.insert(0, os.path.abspath(".."))
 # -- Project information -----------------------------------------------------
 
-project = "vshieldapi"
+project = "vshieldpy"
 copyright = "2023, airblast"
 author = "airblast"
 
