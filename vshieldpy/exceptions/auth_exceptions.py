@@ -4,7 +4,7 @@ from .base_exception import VShieldpyException
 
 
 class InvalidAuthKey(VShieldpyException):
-    """Raised upon finding an invalid format (non base16) auth key."""
+    """Raised upon finding an invalid format (non base16) auth key, or the key was not accepted by the API."""
 
     def __init__(self, auth_key):
         super().__init__(
