@@ -16,8 +16,8 @@ class Invoice:
         kind: Type of the invoice.
         service: Service ID. This includes Server ID's and services. Can be None if a server hasnt been deployed yet.
         payment_method: Method of payment.
-        date_paid: Date the invoice was paid.
-        date: Invoice creation date.
+        date_paid: Date the invoice was paid. Can also be `None` if the invoice hasn't been paid yet.
+        date: The date that the invoice was created.
         due_date: Due date for the invoice.
     """
 
