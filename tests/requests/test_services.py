@@ -3,7 +3,7 @@ import pytest
 from vshieldpy.api_defs.auto_renew import AutoRenew
 from vshieldpy.api_defs.operating_systems import OperatingSystems
 from vshieldpy.api_defs.tasks import ServiceActions
-from vshieldpy.exceptions.parameter_exceptions import ReinstallWithoutOS
+from vshieldpy.exceptions.parameter_exceptions import InvalidMonths, ReinstallWithoutOS
 from vshieldpy.products.service import Hosting
 
 from . import client
@@ -42,3 +42,7 @@ async def test_service_manage_auto_renew():
 async def test_service_renew():
     payment = await client.renew_service(1, 3)
     assert payment.invoice_id is None
+
+    with pytest.raises(InvalidMonths):
+        # Ignoring the type just for testing purposes.
+        await client.renew_service(1, 0)  # type: ignore

@@ -8,6 +8,7 @@ from vshieldpy.api_defs.payment import Payment
 from vshieldpy.api_defs.plans import Plans
 from vshieldpy.api_defs.tasks import ServerActions
 from vshieldpy.exceptions.parameter_exceptions import (
+    InvalidDays,
     InvalidHostname,
     ReinstallWithoutOS,
 )
@@ -54,6 +55,7 @@ async def test_server_manage_autorenew():
 async def test_server_update_hostname():
     new_hostname = await client.set_server_hostname(0, "SteinsGate")
     assert isinstance(new_hostname, str)
+
     with pytest.raises(InvalidHostname):
         await client.set_server_hostname(0, str(list(range(0, 20))))
 
@@ -72,6 +74,9 @@ async def test_server_renew():
     payment = await client.renew_server(0, 100)
     assert type(payment) == Payment
 
+    with pytest.raises(InvalidDays):
+        await client.renew_server(0, 366)
+
 
 async def test_server_delete():
     task_id = await client.delete_server(0)
@@ -83,3 +88,12 @@ async def test_server_order():
         Plans.VDS_PRO_GOLD, Locations.US, "Hello", OperatingSystems.Ubuntu20, 10
     )
     assert type(payment) == Payment
+
+    with pytest.raises(InvalidDays):
+        await client.order_server(
+            Plans.VDS_PRO_GOLD,
+            Locations.US,
+            "darkness",
+            OperatingSystems.WindowsServer22,
+            0,
+        )
