@@ -76,3 +76,5 @@ You can run `python -m ruff check`, and `python -m ruff format` in the project t
 For testing [pytest](https://github.com/pytest-dev/pytest) is used.
 
 You can simply run `python -m pytest` in the project directory to start the tests.
+
+> **_NOTE:_** I would like to give a special thanks to "TheDarkest" over at vShield for helping me out in understanding various parts of the vShield API.
