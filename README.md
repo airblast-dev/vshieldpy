@@ -15,7 +15,7 @@ have priority in testing and ease of use as that is what I can test for.
 
 ### Online Version:
 
-You can read the online version of the documentation [here](https://vshieldpy.readthedocs.io/en/latest/).
+You can read the online version of the documentation [here](https://vshieldpy.readthedocs.io/en/latest/). You can also download the offline version from the documentation page if preferred.
 
 ### Building it yourself:
 
@@ -66,8 +66,8 @@ This will install the dev dependencies needed for testing, linting, and formatti
 
 For formatting and linting [ruff](https://github.com/astral-sh/ruff) is used.
 
-You can run `python -m ruff check`, and `python -m ruff format` in the project directory before creating a PR to check if there is any issues.
+You can run `python -m ruff check`, and `python -m ruff format` in the project to check if there is any issues.
 
 For testing [pytest](https://github.com/pytest-dev/pytest) is used.
 
-Once that is complete, you can simply run `python -m pytest` in the project directory to start the tests.
+You can simply run `python -m pytest` in the project directory to start the tests.
