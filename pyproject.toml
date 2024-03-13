@@ -26,6 +26,7 @@ docs = [
   "sphinx-rtd-theme>=2.0.0",
 ]
 testing = ["Flask>=3.0.2", "anyio[trio]>=4.3.0", "pytest-env>=1.1.3"]
+dev = ["vshieldpy[testing]", "ruff"]
 
 [project.urls]
 Homepage = "https://github.com/airblast-dev/vshieldpy"
