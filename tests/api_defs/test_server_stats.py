@@ -1,10 +1,8 @@
 import pytest
 
-from vshieldpy.client import Client
+from . import client
 
 pytestmark = pytest.mark.anyio
-
-client = Client()
 
 
 async def test_server_stats():

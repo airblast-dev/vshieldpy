@@ -2,12 +2,10 @@ import pytest
 
 from vshieldpy.api_defs.locations import Locations
 from vshieldpy.api_defs.plans import Plans
-from vshieldpy.client import Client
+
+from . import client
 
 pytestmark = pytest.mark.anyio
-
-
-client = Client()
 
 
 async def test_stock_status_check_stock():

@@ -6,12 +6,11 @@ from vshieldpy.api_defs.auto_renew import AutoRenew
 from vshieldpy.api_defs.operating_systems import OperatingSystems
 from vshieldpy.api_defs.plans import Plans
 from vshieldpy.api_defs.status_codes import Status
-from vshieldpy.client import Client
 from vshieldpy.products import Server, Servers
 
-pytestmark = pytest.mark.anyio
+from . import client
 
-client = Client()
+pytestmark = pytest.mark.anyio
 
 SERVERS: tuple[Server, ...] = (
     Server(
