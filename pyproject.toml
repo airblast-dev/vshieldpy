@@ -31,6 +31,7 @@ dev = ["vshieldpy[testing]", "ruff"]
 [project.urls]
 Homepage = "https://github.com/airblast-dev/vshieldpy"
 Issues = "https://github.com/airblast-dev/vshieldpy/issues"
+Docs = "https://vshieldpy.readthedocs.io/en/latest/"
 
 [build-system]
 requires = ["hatchling"]
