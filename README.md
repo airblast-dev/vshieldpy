@@ -3,7 +3,7 @@ A library designed to ease the use of the vShield API when using python.
 Almost all functionality of the API is implemented and with (mostly) proper exceptions.
 
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![Read the Docs](https://readthedocs.org/projects/vshieldpy/badge/?version=latest)](https://about.readthedocs.com/?ref=readthedocs.com)
+[![Read the Docs](https://readthedocs.org/projects/vshieldpy/badge/?version=latest)](https://vshieldpy.readthedocs.io/en/latest)
 [![Testing and Linting](https://github.com/airblast-dev/vshieldpy/actions/workflows/python-package.yml/badge.svg)](https://github.com/airblast-dev/vshieldpy/actions/workflows/python-package.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
