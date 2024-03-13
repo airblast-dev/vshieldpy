@@ -1,4 +1,4 @@
-## vshieldpy
+# vshieldpy
 A library designed to ease the use of the vShield API when using python.
 Almost all functionality of the API is implemented and with (mostly) proper exceptions.
 
@@ -6,18 +6,18 @@ Almost all functionality of the API is implemented and with (mostly) proper exce
 
 <a href="https://vshield.pro"><img src="https://cdn.discordapp.com/attachments/1048581891411951636/1170771111361917008/bannerblue.png?ex=655a4090&is=6547cb90&hm=a0579448a362ca4b2c9dc8014ed765d0c7579ecd19043c6a24dd65e6981edbcf&"></a>
 
-### Supported Products:
+## Supported Products:
 
 All products do have support, however virtual servers (VPS, VDS and VDS-PRO)
 have priority in testing and ease of use as that is what I can test for. 
 
-### Documentation:
+## Documentation:
 
-#### Online Version:
+### Online Version:
 
 You can read the online version of the documentation [here](https://vshieldpy.readthedocs.io/en/latest/).
 
-#### Building it yourself:
+### Building it yourself:
 
 After cloning the repository, you must install the library with the "docs" tag.
 ```bash
@@ -34,9 +34,9 @@ The built documentation will be stored in the `docs/_build` directory of the pro
 Now you can simply open the `index.html` file in your browser of choice, and get started.
 
 
-### Examples:
+## Examples:
 
-#### REPL:
+### REPL:
 Example for creating a client and sending a request to check the accounts current balance.
 		
 ```python-repl
@@ -49,7 +49,7 @@ Example for creating a client and sending a request to check the accounts curren
 
 > **_NOTE:_** For an implementation example in an application such as a discord bot, feel free to check out the [examples](examples/README.md).
 
-### Contribution:
+## Contribution:
 The library does cover all API paths, however, there are a few small things missing.
 - Setting a wallpaper for a server. (This is only doable if you have reseller access)
 - Tasks are not stored in the instance of a server, said tasks are only returned by `/server/getInfo/<server_id>`.
@@ -57,3 +57,17 @@ The library does cover all API paths, however, there are a few small things miss
 - Implementing testing for exceptions. Most important ones are already implemented, however a few (mainly parameter exceptions) are not tested.
 
 For non-breaking and/or small changes feel free to create a PR. If not create an issue so a solution can be discussed.
+
+You can install all the dependencies needed for development using the "dev" tag as shown below.
+```bash
+pip install ".[dev]"
+```
+This will install the dev dependencies needed for testing, linting, and formatting.
+
+For formatting and linting [ruff](https://github.com/astral-sh/ruff) is used.
+
+You can run `python -m ruff check`, and `python -m ruff format` in the project directory before creating a PR to check if there is any issues.
+
+For testing [pytest](https://github.com/pytest-dev/pytest) is used.
+
+Once that is complete, you can simply run `python -m pytest` in the project directory to start the tests.
