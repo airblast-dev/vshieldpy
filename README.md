@@ -1,6 +1,6 @@
 # vshieldpy
 A library designed to ease the use of the vShield API when using python.
-Almost all functionality of the API is implemented and with (mostly) proper exceptions.
+Almost all functionality of the API is implemented, and with proper exceptions.
 
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Read the Docs](https://readthedocs.org/projects/vshieldpy/badge/?version=latest)](https://vshieldpy.readthedocs.io/en/latest)
@@ -9,7 +9,7 @@ Almost all functionality of the API is implemented and with (mostly) proper exce
 
 > **_NOTE:_** This is an unofficial library for the vShield API. There-for vShield is not responsible for any issues regarding this library.
 
-<a href="https://vshield.pro"><img src="https://cdn.discordapp.com/attachments/1048581891411951636/1170771111361917008/bannerblue.png?ex=655a4090&is=6547cb90&hm=a0579448a362ca4b2c9dc8014ed765d0c7579ecd19043c6a24dd65e6981edbcf&"></a>
+[![vShield Blue Banner](https://github.com/airblast-dev/vshieldpy/assets/111659262/c2f54e9e-a9cd-4ee4-936e-6af78f4248e1)](https://vshield.com)
 
 ## Supported Products:
 
