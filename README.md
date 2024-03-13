@@ -13,9 +13,26 @@ have priority in testing and ease of use as that is what I can test for.
 
 ### Documentation:
 
-The library has complete documentation made with sphinx. You can build the documentation yourself using sphinx-build. An online version will be posted soon.
+#### Online Version:
 
-To install sphinx and the sphinx extension dependencies install the project with the docs tag as shown here `pip install ".[docs]"` .
+You can read the online version of the documentation [here](https://vshieldpy.readthedocs.io/en/latest/).
+
+#### Building it yourself:
+
+After cloning the repository, you must install the library with the "docs" tag.
+```bash
+python -m pip install ".[docs]"
+```
+Once it is done, all of the dependencies required to build the documentation will be installed.
+
+You can now build the documentation with a single command.
+```bash
+python -m sphinx docs/ docs/_build
+```
+
+The built documentation will be stored in the `docs/_build` directory of the project. 
+Now you can simply open the `index.html` file in your browser of choice, and get started.
+
 
 ### Examples:
 
@@ -36,6 +53,7 @@ Example for creating a client and sending a request to check the accounts curren
 The library does cover all API paths, however, there are a few small things missing.
 - Setting a wallpaper for a server. (This is only doable if you have reseller access)
 - Tasks are not stored in the instance of a server, said tasks are only returned by `/server/getInfo/<server_id>`.
-- The ease of use of the library might be lacking for various use cases such as hosting a reseller website.
+- The ease of use of the library might be lacking for various use cases such as hosting a reseller website. I am open to ways this can be improved.
+- Implementing testing for exceptions. Most important ones are already implemented, however a few (mainly parameter exceptions) are not tested.
 
 For non-breaking and/or small changes feel free to create a PR. If not create an issue so a solution can be discussed.
