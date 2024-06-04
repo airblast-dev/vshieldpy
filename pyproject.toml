@@ -1,6 +1,6 @@
 [project]
 name = "vshieldpy"
-version = "0.0.1"
+version = "0.0.2"
 authors = [{ name = "Tayfun Bocek", email = "tayfunbocek@live.ca" }]
 description = "Python library for interacting with the vShield API."
 readme = "README.md"
