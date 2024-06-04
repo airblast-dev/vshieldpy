@@ -53,7 +53,7 @@ Example for creating a client and sending a request to check the accounts curren
 '0.00'
 ```
 
-> **_NOTE:_** For an implementation example in an application such as a discord bot, feel free to check out the [examples](examples/README.md).
+> **_NOTE:_** For an implementation example in an application such as a discord bot, feel free to check out the [examples](https://github.com/airblast-dev/vshieldpy/tree/main/examples).
 
 ## Contribution:
 The library does cover all API paths, however, there are a few small things missing.
