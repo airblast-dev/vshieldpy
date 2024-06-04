@@ -6,6 +6,7 @@ Almost all functionality of the API is implemented, and with proper exceptions.
 [![Read the Docs](https://readthedocs.org/projects/vshieldpy/badge/?version=latest)](https://vshieldpy.readthedocs.io/en/latest)
 [![Testing and Linting](https://github.com/airblast-dev/vshieldpy/actions/workflows/python-package.yml/badge.svg)](https://github.com/airblast-dev/vshieldpy/actions/workflows/python-package.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PyPI version](https://badge.fury.io/py/vshieldpy.png)](https://badge.fury.io/py/vshieldpy)
 
 > **_NOTE:_** This is an unofficial library for the vShield API. There-for vShield is not responsible for any issues regarding this library.
 
