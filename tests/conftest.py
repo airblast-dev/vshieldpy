@@ -19,6 +19,9 @@ def test_server():
         },
     )
     thread.start()
+@pytest.fixture
+def anyio_backend():
+    return "asyncio"
 
 
 client = vshieldpy.Client()
