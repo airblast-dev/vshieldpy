@@ -14,7 +14,7 @@ async def test_get_plans():
     assert type(plans) == StockStatus
 
 
-async def test_get_pending_oreders():
+async def test_get_pending_orders():
     pending_orders = await client.fetch_pending_orders()
     assert all([type(pending) == PendingServer for pending in pending_orders])
 
